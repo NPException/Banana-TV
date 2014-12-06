@@ -11,7 +11,7 @@ return {
     boy     = { scare = 0, boring = 10, delight = 0},
     emo     = { scare = 2, boring = 8, delight = 0},
     dad     = { scare = 0, boring = 10, delight = 0},
-    mom     = { scare = 0, boring = 9 delight = 1},
+    mom     = { scare = 0, boring = 9, delight = 1},
     grandma = { scare = 0, boring = 8, delight = 2},
     grandpa = { scare = 0, boring = 10, delight = 0}
     }
