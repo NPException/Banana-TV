@@ -1,4 +1,5 @@
-LD31
-====
+Project Bananensaft
+===================
 
-Repository for my team's LD#31 entry
+Repository for my team's LD#31 entry.
+"Project Bananensaft" is the working title.
