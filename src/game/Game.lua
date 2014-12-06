@@ -1,8 +1,17 @@
 local Game = {}
 local mt = { __index = Game }
 
+local globals = GLOBALS
+local tween = require("lib.tween")
+
 local gfx = {
-  --roomImage = love.graphics.newImage("assets/scene/room.png")
+  roomImages = {
+    love.graphics.newImage("assets/scene/room1.png"),
+    love.graphics.newImage("assets/scene/room2.png"),
+    love.graphics.newImage("assets/scene/room3.png")
+  },
+  roomImageIndex = 1,
+  frameImage = love.graphics.newImage("assets/scene/tvframe.png")
 }
 
 function Game.new()
@@ -16,6 +25,8 @@ function Game.new()
 end
 
 function Game:update(dt)
+  gfx.roomImageIndex = math.ceil((globals.time*7) % 3)
+  
   self.state:update(dt)
 end
 
@@ -23,18 +34,37 @@ local lg = love.graphics
 function Game:draw()
   local state = self.state
   
-  -- TODO draw room --
+  -- draw room background
   lg.setColor(255,255,255)
-  lg.draw(gfx.roomImage,0,0)
+  lg.draw(gfx.roomImages[gfx.roomImageIndex],0,0)
   
+  -- draw state dependent room and tv contents
   if state.drawRoom then state:drawRoom() end
   if state.drawTV then state:drawTV() end
   
-  -- TODO draw tv-overlay --
+  -- draw scanline
+  lg.setLineWidth(1)
+  local alpha = {150}
+  local alphaTween = tween.new(30, alpha, {0}, 'outCirc')
+  for i=0,30 do
+    local scanlineY = math.floor((globals.time*50-i) % (globals.config.resY-1))+1
+    lg.setColor(200,255,255,alpha[1])
+    lg.line(1,scanlineY, globals.config.resX-1, scanlineY)
+    alphaTween:update(1)
+  end
+  
+  -- draw tv frame image
+  lg.setColor(255,255,255)
+  lg.draw(gfx.frameImage,0,0)
   
   if state.drawGUI then state:drawGUI() end
   
   -- TODO draw score --
+  
+  
+  if globals.debug then
+    lg.print(love.timer.getFPS(), 1,1)
+  end
 end
 
 function Game:keypressed(key)

@@ -1,13 +1,12 @@
 require("lib.stringfunctions")
 require("lib.requirefolder")
 
-GLOBALS = {}
+GLOBALS = { debug=false }
 local globals = GLOBALS
 
 local gfxvars = {}
 
 local game
-
 -- LOAD --
 function love.load(arg)
   globals.config = require("conf")
@@ -16,6 +15,8 @@ function love.load(arg)
   gfxvars.offY = 0
   
   love.graphics.setDefaultFilter("nearest","nearest")
+
+  globals.time = 0
   
   game = require("game.Game").new()
 end
@@ -24,7 +25,9 @@ end
 function love.keypressed(key)
   game:keypressed(key)
   
-  if key == "return" then
+  if key == "kp-" then
+    globals.debug = not globals.debug
+  elseif key == "return" then
     if love.keyboard.isDown("lalt") or love.keyboard.isDown("ralt") then
       love.window.setFullscreen(not love.window.getFullscreen(), "desktop")
     end
@@ -39,6 +42,7 @@ end
 
 -- UPDATE --
 function love.update(dt)
+  globals.time = globals.time + dt
   game:update(dt)
 end
 
