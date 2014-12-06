@@ -21,7 +21,7 @@ end
 
 
 local config = {
-  resX = 320,
-  resY = 180
+  resX = 1280,
+  resY = 720
 }
 return config
