@@ -1,6 +1,10 @@
 local Game = {}
 local mt = { __index = Game }
 
+local gfx = {
+  --roomImage = love.graphics.newImage("assets/scene/room.png")
+}
+
 function Game.new()
   local g = setmetatable({},mt)
   g.score = {scare=0, boring=0, delight=0}
@@ -20,6 +24,8 @@ function Game:draw()
   local state = self.state
   
   -- TODO draw room --
+  lg.setColor(255,255,255)
+  lg.draw(gfx.roomImage,0,0)
   
   if state.drawRoom then state:drawRoom() end
   if state.drawTV then state:drawTV() end
@@ -29,8 +35,6 @@ function Game:draw()
   if state.drawGUI then state:drawGUI() end
   
   -- TODO draw score --
-  lg.print("Hello!",5,5)
-  lg.rectangle("line",10,20,1280-20,720-30)
 end
 
 function Game:keypressed(key)

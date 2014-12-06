@@ -4,14 +4,16 @@ require("lib.requirefolder")
 GLOBALS = {}
 local globals = GLOBALS
 
+local gfxvars = {}
+
 local game
 
 -- LOAD --
 function love.load(arg)
   globals.config = require("conf")
-  globals.scale = globals.config.resY / love.window.getHeight()
-  globals.offX = 0
-  globals.offY = 0
+  gfxvars.scale = globals.config.resY / love.window.getHeight()
+  gfxvars.offX = 0
+  gfxvars.offY = 0
   
   love.graphics.setDefaultFilter("nearest","nearest")
   
@@ -22,10 +24,12 @@ end
 function love.keypressed(key)
   game:keypressed(key)
   
-  if (key == "return") then
-    if (love.keyboard.isDown("lalt") or love.keyboard.isDown("ralt")) then
+  if key == "return" then
+    if love.keyboard.isDown("lalt") or love.keyboard.isDown("ralt") then
       love.window.setFullscreen(not love.window.getFullscreen(), "desktop")
     end
+  elseif key == "escape" then
+    love.event.quit()
   end
 end
 
@@ -42,8 +46,8 @@ end
 local lg = love.graphics
 function love.draw()
   lg.push()
-  lg.scale(1/globals.scale, 1/globals.scale)
-  lg.translate(-globals.offX, -globals.offY)
+  lg.scale(1/gfxvars.scale, 1/gfxvars.scale)
+  lg.translate(-gfxvars.offX, -gfxvars.offY)
   
     game:draw()
     
@@ -55,15 +59,15 @@ function love.resize(w,h)
   local sy = globals.config.resY / h
   
   if sx < sy then
-    globals.offX = (globals.config.resX - w*sy)/2
-    globals.offY = 0
+    gfxvars.offX = (globals.config.resX - w*sy)/2
+    gfxvars.offY = 0
   elseif sy < sx then
-    globals.offX = 0
-    globals.offY = (globals.config.resY - h*sx)/2
+    gfxvars.offX = 0
+    gfxvars.offY = (globals.config.resY - h*sx)/2
   else
-    globals.offX = 0
-    globals.offY = 0
+    gfxvars.offX = 0
+    gfxvars.offY = 0
   end
   
-  globals.scale = math.max(sx,sy)
+  gfxvars.scale = math.max(sx,sy)
 end
