@@ -2,6 +2,7 @@ local Room = {}
 Room.__index = Room
 
 local roomImage = love.graphics.newImage("assets/scene/room.png")
+local globals = GLOBALS
 
 
 
@@ -21,7 +22,12 @@ function Room.new()
     
     -- all spots in the room itself. (wall and floor)
     all = {
-      
+      {x=300,y=160,type="wall"},
+      {x=590,y=120,type="wall"},
+      {x=955,y=130,type="wall"},
+      {x=307,y=602,type="floor"},
+      {x=751,y=638,type="floor"},
+      {x=1111,y=535,type="floor"}
     }
   }
   
@@ -68,6 +74,19 @@ function Room:draw()
   
   self.table:draw()
   self.couch:draw()
+  
+  for _,spot in ipairs(self.spots.all) do
+    if spot.value then
+      spot.value:draw(spot)
+    end
+  end
+  
+  if globals.debug then
+    lg.setColor(0,255,0)
+    for _,spot in ipairs(self.spots.all) do
+      lg.circle("line", spot.x, spot.y, 10)
+    end
+  end
 end
 
 

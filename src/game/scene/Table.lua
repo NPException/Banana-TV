@@ -11,13 +11,13 @@ local gfx = {
 
 
 function Table.new()
-  local c = setmetatable({}, Table)
-  c.x = 197
-  c.y = 500
-  c.offX = 94
-  c.offY = 127
-  c.spot = {x=85, y=23, type="table"}
-  return c
+  local t = setmetatable({}, Table)
+  t.x = 197
+  t.y = 500
+  t.offX = 94
+  t.offY = 127
+  t.spot = {x=85 + t.x-t.offX, y=23 + t.y-t.offY, type="table"}
+  return t
 end
 
 
