@@ -24,7 +24,7 @@ function Room.new()
     all = {
       {x=300,y=160,type="wall"},
       {x=590,y=120,type="wall"},
-      {x=955,y=130,type="wall"},
+      {x=955,y=180,type="wall"},
       {x=307,y=602,type="floor"},
       {x=751,y=638,type="floor"},
       {x=1111,y=535,type="floor"}
