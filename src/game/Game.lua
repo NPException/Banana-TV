@@ -7,7 +7,7 @@ local globals = GLOBALS
 
 function Game.new()
   local g = setmetatable({}, Game)
-  g.score = {scared=99999, bored=121, delight=2}
+  g.score = {scared=2151, bored=99999, delight=221}
   g.scene = {
     room = require("game.scene.Room").new(),
     tvframe = require("game.scene.TVFrame").new()
@@ -86,16 +86,21 @@ function Game:draw()
   -- TODO draw score --
   local txtWidth = 260
   local scoreWidth = 180
+  local baseRadi = 0.08
+  local fontSize = 1.5
   -- Scared
-  lg.printf("Scared: ", (globals.config.resX - txtWidth), 45, 50, "right", 0.05, 1.5)
-  lg.printf(self.score.scared, (globals.config.resX - scoreWidth), 49, 100, "left", 0.05, 1.5)
+  lg.setColor(238, 0, 0) -- red
+  lg.printf("Scared: ", (globals.config.resX - txtWidth), 45, 50, "right", baseRadi, fontSize)
+  lg.printf(self.score.scared, (globals.config.resX - scoreWidth), 51, 100, "left", baseRadi, fontSize)
   -- Bored
-  lg.printf("Bored: ", (globals.config.resX - txtWidth), 75, 50, "right", 0.05, 1.5)
-  lg.printf(self.score.bored, (globals.config.resX - scoreWidth), 79, 100, "left", 0.05, 1.5)
+  lg.setColor(238, 238, 0) -- yellow
+  lg.printf("Bored: ", (globals.config.resX - txtWidth), 75, 50, "right", baseRadi, fontSize)
+  lg.printf(self.score.bored, (globals.config.resX - scoreWidth), 81, 100, "left", baseRadi, fontSize)
   -- Delight
-  lg.printf("Delight: ", (globals.config.resX - txtWidth), 105, 50, "right", 0.05, 1.5)
-  lg.printf(self.score.delight, (globals.config.resX - scoreWidth), 109, 100, "left", 0.05, 1.5)
-  
+  lg.setColor(0, 238, 0) -- green
+  lg.printf("Delight: ", (globals.config.resX - txtWidth), 105, 50, "right", baseRadi, fontSize)
+  lg.printf(self.score.delight, (globals.config.resX - scoreWidth), 111, 100, "left", baseRadi, fontSize)
+
 
   if globals.debug then
     lg.print(love.timer.getFPS(), 1,1)
