@@ -1,4 +1,4 @@
-local frame = {}
+local tvframe = {}
 
 local globals = GLOBALS
 local tween = require("lib.tween")
@@ -10,11 +10,11 @@ local gfx = {
 
 
 
-function frame.update(dt)
+function tvframe.update(dt)
 end
 
 local lg = love.graphics
-function frame.draw()
+function tvframe.draw()
   -- draw scanline
   lg.setLineWidth(1)
   local alpha = {150}
@@ -35,4 +35,4 @@ function frame.draw()
   end
 end
 
-return frame
+return tvframe
