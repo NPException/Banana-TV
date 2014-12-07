@@ -7,7 +7,7 @@ local globals = GLOBALS
 
 function Game.new()
   local g = setmetatable({}, Game)
-  g.score = {scared=99999, bored=99999, delight=99999}
+  g.score = {scared=99999, bored=121, delight=2}
   g.scene = {
     room = require("game.scene.Room").new(),
     tvframe = require("game.scene.TVFrame").new()
@@ -81,21 +81,19 @@ function Game:draw()
   if state.drawGUI then state:drawGUI() end
   
   -- TODO draw score --
-  -- Score version 1
-  local txtWidth = 380
-  lg.printf("Scared: " .. self.score.scared, (globals.config.resX - txtWidth), 45, 200, "right", 0.05, 1.5)
-  lg.printf("Bored: " .. self.score.bored, (globals.config.resX - txtWidth), 75, 200, "right", 0.05, 1.5)
-  lg.printf("Delight: " .. self.score.delight, (globals.config.resX - txtWidth), 105, 200, "right", 0.05, 1.5)
+  local txtWidth = 260
+  local scoreWidth = 180
+  -- Scared
+  lg.printf("Scared: ", (globals.config.resX - txtWidth), 45, 50, "right", 0.05, 1.5)
+  lg.printf(self.score.scared, (globals.config.resX - scoreWidth), 49, 100, "left", 0.05, 1.5)
+  -- Bored
+  lg.printf("Bored: ", (globals.config.resX - txtWidth), 75, 50, "right", 0.05, 1.5)
+  lg.printf(self.score.bored, (globals.config.resX - scoreWidth), 79, 100, "left", 0.05, 1.5)
+  -- Delight
+  lg.printf("Delight: ", (globals.config.resX - txtWidth), 105, 50, "right", 0.05, 1.5)
+  lg.printf(self.score.delight, (globals.config.resX - scoreWidth), 109, 100, "left", 0.05, 1.5)
   
-  -- Score version 2
-  txtWidth = 390
-  lg.setColor({160,32,240,140})
-  lg.rectangle("fill",(globals.config.resX - (txtWidth - 30)), 140, 210 ,100)
-  lg.setColor({255,255,255,255})
-  lg.printf("Scared: " .. self.score.scared, (globals.config.resX - txtWidth), 145, 200, "right", 0.00, 1.2)
-  lg.printf("Bored: " .. self.score.bored, (globals.config.resX - txtWidth), 175, 200, "right", 0.00, 1.2)
-  lg.printf("Delight: " .. self.score.delight, (globals.config.resX - txtWidth), 205, 200, "right", 0.00, 1.2)
-  
+
   if globals.debug then
     lg.print(love.timer.getFPS(), 1,1)
   end
