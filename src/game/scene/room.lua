@@ -1,31 +1,36 @@
-local room = {}
+local Room = {}
+Room.__index = Room
 
-local globals = GLOBALS
+local roomImage = love.graphics.newImage("assets/scene/room.png")
 
-local gfx = {
-  roomImage = love.graphics.newImage("assets/scene/room.png"),
-  roomDevImages = {
-    love.graphics.newImage("assets/scene/room_dev_1.png"),
-    love.graphics.newImage("assets/scene/room_dev_2.png"),
-    love.graphics.newImage("assets/scene/room_dev_3.png")
-  },
-  roomDevImageIndex = 1
-}
 
-function room.update(dt)
-  if globals.config.oldschool then
-    gfx.roomDevImageIndex = math.ceil((globals.time*7) % 3)
-  end
+
+function Room.new()
+  local r = setmetatable({}, Room)
+  
+  r.couch = require("game.scene.Couch").new()
+  r.table = require("game.scene.Table").new()
+  return r
 end
+
+
+
+function Room:update(dt)
+  self.table:update(dt)
+  self.couch:update(dt)
+end
+
+
 
 local lg = love.graphics
-function room.draw()
+function Room:draw()
   lg.setColor(255,255,255)
-  if globals.config.oldschool then
-    lg.draw(gfx.roomDevImages[gfx.roomDevImageIndex],0,0)
-  else
-    lg.draw(gfx.roomImage,0,0)
-  end
+  lg.draw(roomImage,0,0)
+  
+  self.table:draw()
+  self.couch:draw()
 end
 
-return room
+
+
+return Room

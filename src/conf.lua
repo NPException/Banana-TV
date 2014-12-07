@@ -1,6 +1,6 @@
 function love.conf(t)
   t.version = "0.9.1"                -- The LÖVE version this game was made for (string)
-  t.window.title = "Project Bananensaft"
+  t.window.title = "Banana TV"
   t.window.icon = nil                -- Filepath to an image to use as the window's icon (string)
   t.window.width = 1280              -- The window width (number)
   t.window.height = 720              -- The window height (number)
@@ -22,15 +22,8 @@ end
 
 
 local config = {
-  oldschool = false,
   resX = 1280,
   resY = 720
 }
-
-function config:setOldschool(oldschool)
-  self.oldschool = oldschool
-  self.resX = oldschool and 320 or 1280
-  self.resY = oldschool and 180 or 720
-end
 
 return config

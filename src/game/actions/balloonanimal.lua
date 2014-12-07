@@ -6,13 +6,13 @@ return {
   animation = nil,  -- Filepath
   icon = love.graphics.newImage("assets/actions/balloonanimal.png"),
   score = {
-    baby    = { scare = 0, boring = 0, delight = 8},
-    girl    = { scare = 0, boring = 6, delight = 2},
-    boy     = { scare = 0, boring = 8, delight = 0},
-    emo     = { scare = 2, boring = 5, delight = 0},
-    dad     = { scare = 0, boring = 10, delight = 0},
-    mom     = { scare = 0, boring = 9, delight = 1},
-    grandma = { scare = 0, boring = 5, delight = 3},
-    grandpa = { scare = 0, boring = 10, delight = 0}
-    }
+    baby    = { scared = 0, bored = 0, delight = 8},
+    girl    = { scared = 0, bored = 6, delight = 2},
+    boy     = { scared = 0, bored = 8, delight = 0},
+    emo     = { scared = 2, bored = 5, delight = 0},
+    dad     = { scared = 0, bored = 10, delight = 0},
+    mom     = { scared = 0, bored = 9, delight = 1},
+    grandma = { scared = 0, bored = 5, delight = 3},
+    grandpa = { scared = 0, bored = 10, delight = 0}
   }
+}

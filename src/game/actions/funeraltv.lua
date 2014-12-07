@@ -6,13 +6,13 @@ return {
   animation = nil,  -- Filepath
   icon = love.graphics.newImage("assets/actions/funeraltv.png"),
   score = {
-    baby    = { scare = 0, boring = 10, delight = 0},
-    girl    = { scare = 10, boring = 0, delight = 0},
-    boy     = { scare = 5, boring = 0, delight = 5},
-    emo     = { scare = 0, boring = 0, delight = 12},
-    dad     = { scare = 2, boring = 8, delight = 0},
-    mom     = { scare = 4, boring = 8, delight = 0},
-    grandma = { scare = 4, boring = 3, delight = 5},
-    grandpa = { scare = 3, boring = 5, delight = 4}
-    }
+    baby    = { scared = 0, bored = 10, delight = 0},
+    girl    = { scared = 10, bored = 0, delight = 0},
+    boy     = { scared = 5, bored = 0, delight = 5},
+    emo     = { scared = 0, bored = 0, delight = 12},
+    dad     = { scared = 2, bored = 8, delight = 0},
+    mom     = { scared = 4, bored = 8, delight = 0},
+    grandma = { scared = 4, bored = 3, delight = 5},
+    grandpa = { scared = 3, bored = 5, delight = 4}
   }
+}

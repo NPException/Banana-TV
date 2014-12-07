@@ -4,9 +4,7 @@ Couch.__index = Couch
 local globals = GLOBALS
 
 
-local gfx = {
-  image = love.graphics.newImage("assets/scene/couch.png"),
-}
+local image = love.graphics.newImage("assets/scene/couch.png")
 
 
 
@@ -40,7 +38,7 @@ local lg = love.graphics
 function Couch:draw()
   if not globals.config.oldschool then
     lg.setColor(255,255,255)
-    lg.draw(gfx.image, self.x-self.offX, self.y-self.offY)
+    lg.draw(image, self.x-self.offX, self.y-self.offY)
   end
 end
 
