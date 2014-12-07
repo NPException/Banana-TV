@@ -1,6 +1,6 @@
 return {
   name = "Chaos Jr.",
-  scale = 1,
+  scale = 0.8,
   
   images = {
     scared = {"assets/characters/boy_scared.png", 111, 368},

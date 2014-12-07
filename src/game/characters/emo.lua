@@ -1,6 +1,6 @@
 return {
   name = "Cutting Edge",
-  scale = 1,
+  scale = 0.9,
   
   images = {
     scared = {"assets/characters/emo_scared.png", 214, 264},

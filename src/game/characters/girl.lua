@@ -1,6 +1,6 @@
 return {
-  name = "Lizzy",
-  scale = 1,
+  name = "Lilly",
+  scale = 0.7,
   
   images = {
     scared = {"assets/characters/girl_scared.png", 170, 333},
