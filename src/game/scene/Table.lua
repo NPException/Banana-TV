@@ -16,13 +16,7 @@ function Table.new()
   c.y = 500
   c.offX = 94
   c.offY = 127
-  c.seats = {
-    {x=85, y=23}
-  }
-  c.spots = {
-    {x=137,y=11},
-    {x=40,y=32}
-  }
+  c.spot = {x=85, y=23, type="table"}
   return c
 end
 

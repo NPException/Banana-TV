@@ -1,9 +1,13 @@
 return {
   name = "ashtray",
-  image = love.graphics.newImage("assets/items/ashtray.png"),
-  offsetX = 0,
-  offsetY = 0,
+  image = love.graphics.newImage("assets/items/ashtray_dev.png"),
+  offsetX = 60,
+  offsetY = 216,
   positions = {
-    {0,0}
+    wall=false,
+    armrests=true,
+    seats=false,
+    table=true,
+    floor=false
   }
 }

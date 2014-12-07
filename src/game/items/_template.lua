@@ -3,7 +3,11 @@ return {
   image = love.graphics.newImage("assets/items/image.png"),
   offsetX = 0,
   offsetY = 0,
-  positions = {
-    {0,0}
+  positions = { -- positions where the item can appear
+    wall=true,
+    armrests=true,
+    seats=true,
+    table=true,
+    floor=true
   }
 }

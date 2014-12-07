@@ -4,6 +4,10 @@ return {
   offsetX = 0,
   offsetY = 0,
   positions = {
-    {0,0}
+    wall=false,
+    armrests=false,
+    seats=false,
+    table=true,
+    floor=false
   }
 }

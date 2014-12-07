@@ -15,14 +15,12 @@ function Couch.new()
   c.offX = 370
   c.offY = 220
   c.seats = {
-    {x=230, y=166},
-    {x=490, y=147}
+    {x=230, y=166, type="seat"},
+    {x=490, y=147, type="seat"}
   }
-  c.spots = {
-    {x=162,y=17},
-    {x=591,y=16},
-    {x=670,y=70},
-    {x=227,y=166}
+  c.armrests = {
+    {x=670,y=70, type="armrest"},
+    {x=54,y=82, type="armrest"}
   }
   return c
 end
