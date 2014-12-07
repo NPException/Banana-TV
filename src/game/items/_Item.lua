@@ -7,7 +7,7 @@ local globals = GLOBALS
 
 function Item.new(id, itemTable)
   local item = setmetatable({}, Item)
-  item.id = id -- this is used to map the action scores to the character
+  item.id = id
   item.name = itemTable.name
   item.image = itemTable.image
   item.offsetX = itemTable.offsetX
