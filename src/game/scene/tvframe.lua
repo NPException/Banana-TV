@@ -17,7 +17,7 @@ local lg = love.graphics
 function tvframe.draw()
   -- draw scanline
   lg.setLineWidth(1)
-  local alpha = {150}
+  local alpha = {100}
   local alphaTween = tween.new(100, alpha, {0}, 'outCirc')
   for i=0,100 do
     local scanlineY = math.floor((globals.time*globals.config.resY*0.3-i) % (globals.config.resY-10))+5
