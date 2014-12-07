@@ -15,6 +15,13 @@ function love.load(arg)
   gfxvars.offY = 0
   
   love.graphics.setDefaultFilter("nearest","nearest")
+  -- init font
+  font = love.graphics.newImageFont("assets/font/font.png",
+    " abcdefghijklmnopqrstuvwxyz"..
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0"..
+    "123456789.,!?-+/():;%&`'*#=[]\""..
+    "äöüÄÖÜ")
+  love.graphics.setFont(font)
 
   globals.time = 0
   
