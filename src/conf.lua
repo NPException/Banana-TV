@@ -16,7 +16,7 @@ function love.conf(t)
   t.modules.joystick = false         -- Enable the joystick module (boolean)
   t.modules.physics = false          -- Physics module
   
-  t.console = true -- for development only
+  --t.console = true -- for deployment test only
 end
 
 

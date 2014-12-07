@@ -12,8 +12,8 @@ function Game.new()
     room = require("game.objects.scene.room"),
     frame = require("game.objects.scene.frame")
   }
-  g.items = requirefolder("items")
-  g.actions = requirefolder("actions")
+  g.items = requirefolder("game/items")
+  g.actions = requirefolder("game/actions")
   g.people = nil
   g.state = { update = function() end } -- TODO
   return g
