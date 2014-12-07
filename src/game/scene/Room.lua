@@ -75,6 +75,12 @@ function Room:draw()
   self.table:draw()
   self.couch:draw()
   
+  for _,spot in ipairs(self.spots.all) do
+    if spot.value then
+      spot.value:draw(spot)
+    end
+  end
+  
   if globals.debug then
     lg.setColor(0,255,0)
     for _,spot in ipairs(self.spots.all) do

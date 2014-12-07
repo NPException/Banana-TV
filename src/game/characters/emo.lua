@@ -3,9 +3,9 @@ return {
   scale = 0.9,
   
   images = {
-    scared = {"assets/characters/emo_scared.png", 214, 264},
-    bored = {"assets/characters/emo_bored.png", 214, 264},
-    delight = {"assets/characters/emo_delight.png", 214, 264}
+    scared =  {love.graphics.newImage("assets/characters/emo_scared.png"),  214, 264},
+    bored =   {love.graphics.newImage("assets/characters/emo_bored.png"),   214, 264},
+    delight = {love.graphics.newImage("assets/characters/emo_delight.png"), 214, 264}
   }
   
 }

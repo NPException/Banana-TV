@@ -11,10 +11,10 @@ function Character.new(id, charTable)
   char.name = charTable.name
   char.scale = charTable.scale
   char.images = {
-    --        { loaded image,                                          image offset X,              image offset Y              }
-    scared  = { love.graphics.newImage( charTable.images.scared[1] ),  charTable.images.scared[2],  charTable.images.scared[3]  },
-    bored   = { love.graphics.newImage( charTable.images.bored[1] ),   charTable.images.bored[2],   charTable.images.bored[3]   },
-    delight = { love.graphics.newImage( charTable.images.delight[1] ), charTable.images.delight[2], charTable.images.delight[3] }
+    --        { loaded image,                image offset X,              image offset Y              }
+    scared  = { charTable.images.scared[1],  charTable.images.scared[2],  charTable.images.scared[3]  },
+    bored   = { charTable.images.bored[1],   charTable.images.bored[2],   charTable.images.bored[3]   },
+    delight = { charTable.images.delight[1], charTable.images.delight[2], charTable.images.delight[3] }
   }
   char.mood = "bored"
   return char
