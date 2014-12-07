@@ -57,11 +57,12 @@ function Game:draw()
   -- draw room background
   self.scene.room:draw()
   
-  local count = 0
-  for _,char in pairs(self.characters) do
-    char:draw({x=mx+count*200, y=my})
-    count = count + 1
-  end
+--  local count = 0
+--  for _,char in pairs(self.characters) do
+--    char:draw({x=mx+count*200, y=my})
+--    count = count + 1
+--  end
+  self.characters.emo:draw({x=mx, y=my})
   
   -- draw state dependent room and tv contents
   if state.drawRoom then state:drawRoom() end

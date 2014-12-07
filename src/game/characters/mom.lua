@@ -1,5 +1,6 @@
 return {
   name = "Mrs. Cleanup",
+  scale = 1,
   
   images = {
     scared = {"assets/characters/mom_scared.png", 130, 349},

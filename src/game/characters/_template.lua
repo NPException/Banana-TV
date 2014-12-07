@@ -1,6 +1,7 @@
 return {  
   -- name of the character
   name = "Char Name",
+  scale = 1,
   
   -- where the images are
   images = {

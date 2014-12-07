@@ -15,8 +15,8 @@ function Couch.new()
   c.offX = 370
   c.offY = 220
   c.seats = {
-    {x=230, y=166, type="seat"},
-    {x=490, y=147, type="seat"}
+    {x=200, y=166, type="seat"},
+    {x=500, y=147, type="seat"}
   }
   c.armrests = {
     {x=670,y=70, type="armrest"},
