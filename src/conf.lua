@@ -20,8 +20,17 @@ function love.conf(t)
 end
 
 
+
 local config = {
+  oldschool = false,
   resX = 1280,
   resY = 720
 }
+
+function config:setOldschool(oldschool)
+  self.oldschool = oldschool
+  self.resX = oldschool and 320 or 1280
+  self.resY = oldschool and 180 or 720
+end
+
 return config
