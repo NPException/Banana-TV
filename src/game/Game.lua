@@ -13,7 +13,12 @@ function Game.new()
     tvframe = require("game.scene.TVFrame").new()
   }
   
-  g.actions = requirefolder("game/actions")
+  -- initialize actions
+  local Action = require("game.actions._Action")
+  g.actions = {}
+  for key,actionTable in pairs(requirefolder("game/actions")) do
+    g.actions[key] = Action.new(key, actionTable)
+  end
   
   -- initialize items
   local Item = require("game.items._Item")
@@ -21,8 +26,6 @@ function Game.new()
   for key,itemTable in pairs(requirefolder("game/items")) do
     g.items[key] = Item.new(key, itemTable)
   end
-  
-  g.scene.room.table.spot.value = g.items.ashtray
   
   -- initialize characters
   local Character = require("game.characters._Character")
