@@ -7,5 +7,4 @@ return {
     bored =   {love.graphics.newImage("assets/characters/baby_bored.png"),   150, 312},
     delight = {love.graphics.newImage("assets/characters/baby_delight.png"), 150, 312}
   }
-  
 }
