@@ -101,8 +101,8 @@ function Game:draw()
     lg.printf("Delight: ", (globals.config.resX - txtWidth), 105, 50, "right", baseRadi, fontSize)
     lg.printf(self.score.delight, (globals.config.resX - scoreWidth), 111, 100, "left", baseRadi, fontSize)
   end
-
-
+  
+  
   if globals.debug then
     -- print FPS
     lg.setColor(255,255,255)
@@ -130,6 +130,8 @@ end
 
 function Game:mousepressed(x,y,button)
   local state = self.state
+  x = x*globals.scale + globals.offX
+  y = y*globals.scale + globals.offY
   if state.mousepressed then state:mousepressed(x,y,button) end
 end
 
