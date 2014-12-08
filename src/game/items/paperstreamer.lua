@@ -1,8 +1,8 @@
 return {
   name = "paper streamer",
-  image = love.graphics.newImage("assets/items/paperstreamer.png"),
-  offsetX = 0,
-  offsetY = 0,
+  image = love.graphics.newImage("assets/items/paperstreamer_dev.png"),
+  offsetX = 102,
+  offsetY = 34,
   positions = {
     wall=true,
     armrests=false,

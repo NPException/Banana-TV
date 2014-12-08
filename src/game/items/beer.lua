@@ -1,8 +1,8 @@
 return {
   name = "beer",
-  image = love.graphics.newImage("assets/items/beer.png"),
-  offsetX = 0,
-  offsetY = 0,
+  image = love.graphics.newImage("assets/items/beer_dev.png"),
+  offsetX = 102,
+  offsetY = 34,
   positions = {
     wall=false,
     armrests=false,

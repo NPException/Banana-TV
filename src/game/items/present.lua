@@ -1,8 +1,8 @@
 return {
   name = "present",
-  image = love.graphics.newImage("assets/items/present.png"),
-  offsetX = 0,
-  offsetY = 0,
+  image = love.graphics.newImage("assets/items/present_dev.png"),
+  offsetX = 102,
+  offsetY = 34,
   positions = {
     wall=false,
     armrests=false,

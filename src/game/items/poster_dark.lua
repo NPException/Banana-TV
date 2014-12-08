@@ -1,8 +1,8 @@
 return {
   name = "dark poster",
-  image = love.graphics.newImage("assets/items/poster_dark.png"),
-  offsetX = 0,
-  offsetY = 0,
+  image = love.graphics.newImage("assets/items/poster_dark_dev.png"),
+  offsetX = 86,
+  offsetY = 99,
   positions = {
     wall=true,
     armrests=false,
