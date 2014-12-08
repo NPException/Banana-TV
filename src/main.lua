@@ -7,6 +7,7 @@ local globals = GLOBALS
 local gfxvars = {}
 
 local game
+local timer = require("game.states.Timer").new() -- test
 -- LOAD --
 function love.load(arg)
   globals.config = require("conf")
@@ -42,6 +43,8 @@ function love.keypressed(key)
     end
   elseif key == "escape" then
     love.event.quit()
+  elseif key == "kp1" then
+    timer:start(function() print("Fertig!") end, 3)
   end
 end
 
@@ -53,6 +56,7 @@ end
 function love.update(dt)
   globals.time = globals.time + dt
   game:update(dt)
+  timer:update(dt)
 end
 
 -- DRAW --
@@ -63,6 +67,7 @@ function love.draw()
   lg.translate(-gfxvars.offX, -gfxvars.offY)
   
     game:draw()
+    timer:draw()
     
   lg.pop()
 end
