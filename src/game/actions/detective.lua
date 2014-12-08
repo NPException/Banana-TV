@@ -2,7 +2,7 @@
 -- Action: Detective
 -- --------------------------
 return {
-  name = "detective with magnifier",
+  name = "detective",
   animation = love.graphics.newImage("assets/actions/detective_dev.png"),  -- Filepath
   icon = love.graphics.newImage("assets/actions/detective_dev.png"),
   score = {

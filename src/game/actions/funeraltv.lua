@@ -2,7 +2,7 @@
 -- Action: Funeral TV
 -- --------------------------
 return {
-  name = "funeral tv",
+  name = "funeraltv",
   animation = love.graphics.newImage("assets/actions/funeraltv_dev.png"),  -- Filepath
   icon = love.graphics.newImage("assets/actions/funeraltv_dev.png"),
   score = {
