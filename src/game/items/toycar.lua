@@ -1,8 +1,8 @@
 return {
   name = "toy car",
-  image = love.graphics.newImage("assets/items/toycar.png"),
-  offsetX = 0,
-  offsetY = 0,
+  image = love.graphics.newImage("assets/items/toycar_dev.png"),
+  offsetX = 37,
+  offsetY = 53,
   positions = {
     wall=false,
     armrests=false,
