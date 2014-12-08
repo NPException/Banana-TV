@@ -85,18 +85,27 @@ function Game:draw()
   -- draw score --
   if self.showScore then
     local txtWidth = 260
-    local scoreWidth = 180
+    local scoreWidth = 175
     local baseRadi = 0.08
     local fontSize = 1.5
+    local fontSizeNorm = 1.5
+    local fontSizeGoal = 1.8
+    
     -- Scared
+    fontSize = fontSizeNorm
+    if self.variant == "scared" then fontSize = fontSizeGoal end
     lg.setColor(238, 0, 0) -- red
     lg.printf("Scared: ", (globals.config.resX - txtWidth), 45, 50, "right", baseRadi, fontSize)
     lg.printf(self.score.scared, (globals.config.resX - scoreWidth), 51, 100, "left", baseRadi, fontSize)
     -- Bored
+    fontSize = fontSizeNorm
+    if self.variant == "bored" then fontSize = fontSizeGoal end
     lg.setColor(238, 238, 0) -- yellow
     lg.printf("Bored: ", (globals.config.resX - txtWidth), 75, 50, "right", baseRadi, fontSize)
     lg.printf(self.score.bored, (globals.config.resX - scoreWidth), 81, 100, "left", baseRadi, fontSize)
     -- Delight
+    fontSize = fontSizeNorm
+    if self.variant == "delight" then fontSize = fontSizeGoal end
     lg.setColor(0, 238, 0) -- green
     lg.printf("Delight: ", (globals.config.resX - txtWidth), 105, 50, "right", baseRadi, fontSize)
     lg.printf(self.score.delight, (globals.config.resX - scoreWidth), 111, 100, "left", baseRadi, fontSize)
