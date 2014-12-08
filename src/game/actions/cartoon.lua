@@ -4,7 +4,7 @@
 return {
   name = "cartoon",
   animation = love.graphics.newImage("assets/actions/cartoon_dev.png"),
-  icon = love.graphics.newImage("assets/actions/cartoon_dev.png"),
+  icon = love.graphics.newImage("assets/actions/cartoon_icon_dev.png"),
   score = {
     baby    = { scared = 0, bored = 0, delight = 10},
     girl    = { scared = 0, bored = 4, delight = 4},
