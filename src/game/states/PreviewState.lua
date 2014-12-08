@@ -92,7 +92,7 @@ function Preview:update(dt)
     self.countdown = self.countdown - dt
     if self.countdown <= 0 then
       local changeToChoice = function()
-        self.game.state = require("game.states.ChoiceState").new()
+        self.game.state = require("game.states.ChoiceState").new(self.game)
       end
       self.game.timer:start(changeToChoice, 3)
       self.countdown = nil
