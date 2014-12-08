@@ -27,7 +27,11 @@ function love.load(arg)
     "123456789.,!?-+/():;%&`'*#=[]\""..
     "äöüÄÖÜ")
   love.graphics.setFont(font)
-
+  
+  -- init cursor
+  cursor = love.mouse.newCursor("assets/mouse/cursor.png",0,0)
+  love.mouse.setCursor(cursor)
+  
   globals.time = 0
   
   game = require("game.Game").new()
