@@ -35,6 +35,9 @@ function Game.new()
     g.characters[key] = Character.new(key, charTable)
   end
   
+  -- init timer
+  g.timer = require("game.states.Timer").new()
+  
   g.state = require("game.states.MenuState").new(g)
   return g
 end
@@ -56,6 +59,7 @@ function Game:update(dt)
   end
   
   self.state:update(dt)
+  self.timer:update(dt)
 end
 
 
@@ -83,6 +87,9 @@ function Game:draw()
   self.scene.tvframe:draw()
   
   if state.drawGUI then state:drawGUI() end
+  
+  -- draw timer --
+  self.timer:draw()
   
   -- draw score --
   if self.showScore then
