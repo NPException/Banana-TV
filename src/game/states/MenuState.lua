@@ -4,6 +4,7 @@ Menu.__index = Menu
 local globals = GLOBALS
 local tween = require("lib.tween")
 local lg = love.graphics
+local hsvtorgb = HSVtoRGB
 
 local moods = {
   "bored", "scared", "delight"
@@ -58,7 +59,7 @@ function Menu:update(dt)
   
   lg.setCanvas(self.titlecanvas)
     local width = lg.getFont():getWidth("Banana ")
-    lg.setColor(HSVtoRGB(self.titleHue,255,255))
+    lg.setColor(hsvtorgb(self.titleHue,255,255))
     lg.print("TV",width)
   lg.setCanvas()
   
@@ -124,17 +125,40 @@ function Menu:drawRoom()
 end
 
 
-
-function Menu:drawTV()
-  local width = self.titlecanvas:getWidth()
-  local height = self.titlecanvas:getHeight()
-  lg.setColor(255,255,255,255)
-  love.graphics.draw(self.titlecanvas, globals.config.resX/2, 160, self.titleTilt, self.titleScale, self.titleScale, width/2, height/2)
-end
+local canvases = {}
+local function drawAtHeight(text, y, scale, color)
+  local canvas = canvases[text]
+  if not canvas then
+    local width = lg.getFont():getWidth(text)
+    local height = lg.getFont():getHeight()
+    canvas = lg.newCanvas(width+4, height+4)
+    lg.setCanvas(canvas)
+      lg.setColor(0,0,0,200)
+      lg.rectangle("fill",0,0,canvas:getWidth(), canvas:getHeight())
+    lg.setCanvas()
+    canvases[text] = canvas
+  end
   
+  lg.setCanvas(canvas)
+    lg.setColor(color)
+    lg.print(text, 2, 2)
+  lg.setCanvas()
+  lg.setColor(255,255,255,200)
+  lg.draw(canvas, globals.config.resX/2, y, 0.05, scale, scale, canvas:getWidth()/2, canvas:getHeight()/2)
+end
+
 
 
 function Menu:drawGUI()
+  local width = self.titlecanvas:getWidth()
+  local height = self.titlecanvas:getHeight()
+  lg.setColor(255,255,255,170)
+  lg.draw(self.titlecanvas, globals.config.resX/2, 160, self.titleTilt, self.titleScale, self.titleScale, width/2, height/2)
+  
+  height = 450
+  drawAtHeight("[1] Try to delight", height,     3, {0,238,0}   )
+  drawAtHeight("[2] Try to bore",    height+70,  3, {238,238,0} )
+  drawAtHeight("[3] Try to scare",   height+140, 3, {238,0,0}   )
 end
 
 
