@@ -1,6 +1,6 @@
 require("lib.stringfunctions")
 require("lib.requirefolder")
-require("lib.tablefunction")
+require("lib.tablefunctions")
 require("lib.hsv")
 
 GLOBALS = { debug=false }
@@ -16,6 +16,8 @@ function love.load(arg)
   globals.scale = globals.config.resY / love.window.getHeight()
   globals.offX = 0
   globals.offY = 0
+  
+  math.randomseed(os.clock())
   
   love.graphics.setDefaultFilter("nearest","nearest")
   -- init font
@@ -38,7 +40,12 @@ function love.keypressed(key)
   if key == "kp-" then
     globals.debug = not globals.debug
   elseif key == "kp+" then
-    game.scene.tvframe:startNoise()
+    local frame = game.scene.tvframe
+    if frame.noise.loop then
+      frame:stopNoise()
+    else
+      frame:startNoise(true)
+    end
   elseif key == "return" then
     if love.keyboard.isDown("lalt") or love.keyboard.isDown("ralt") then
       love.window.setFullscreen(not love.window.getFullscreen(), "desktop")

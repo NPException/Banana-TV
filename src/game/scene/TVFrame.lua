@@ -19,18 +19,27 @@ function TVFrame.new()
     duration = 0.5,
     alpha = 0,
     scale = 6,
-    sound = love.audio.newSource("assets/sounds/static.wav", "static")
+    sound = love.audio.newSource("assets/sounds/static.wav", "static"),
+    soundloop = love.audio.newSource("assets/sounds/staticloop.wav", "static")
   }
   tvf.noise.canvas = lg.newCanvas(globals.config.resX/tvf.noise.scale, globals.config.resY/tvf.noise.scale)
+  tvf.noise.soundloop:setLooping(true)
   return tvf
 end
 
 
 
-function TVFrame:startNoise()
+function TVFrame:startNoise(loop)
   self.noise.tick = 0
   self.noise.alpha = 255
   self.noise.start = true
+  self.noise.loop = loop
+end
+
+
+
+function TVFrame:stopNoise()
+  self.noise.loop = false
 end
 
 
@@ -41,7 +50,11 @@ function TVFrame:update(dt)
   -- update white noise
   if self.noise.alpha > 0 then
     if self.noise.start then
-      self.noise.sound:play()
+      if self.noise.loop then
+        self.noise.soundloop:play()
+      else
+        self.noise.sound:play()
+      end
       self.noise.start = false
     end
     if self.noise.tick > 0 then
@@ -63,7 +76,18 @@ function TVFrame:update(dt)
       end
       lg.setCanvas()
     end
-    self.noise.alpha = self.noise.alpha - dt*(1/self.noise.duration)*255
+    
+    if not self.noise.loop then
+      self.noise.alpha = self.noise.alpha - dt*(1/self.noise.duration)*255
+    end
+    
+    self.noise.soundloop:setVolume((self.noise.alpha/255))
+    self.noise.sound:setVolume((self.noise.alpha/255))
+    
+    if self.noise.alpha <= 0 then
+      self.noise.sound:stop()
+      self.noise.soundloop:stop()
+    end
   end
 end
 

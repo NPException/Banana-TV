@@ -60,13 +60,8 @@ function Menu:keypressed(key)
   
   if gameVariant then
     self.game.variant = gameVariant
-    self.game.state = {
-      update = function() end,
-      drawGUI = function()
-        lg.setColor(255,255,255)
-        lg.print(gameVariant, 300,300, 0, 6, 6)
-      end
-    }
+    --self.game.state = require("game.states.PreviewState").new()
+    self.game.scene.tvframe:startNoise()
   end
 end
 
