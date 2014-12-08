@@ -21,12 +21,14 @@ function Menu.new(game)
   menu.stuff = {}
   menu.changeTimer = 0
   
-  local width = lg.getFont():getWidth("Banana TV")
-  local height = lg.getFont():getHeight()
-  menu.titlecanvas = lg.newCanvas(width,height)
+  local width = lg.getFont():getWidth("Banana TV")*menu.titleScale
+  local height = lg.getFont():getHeight()*menu.titleScale
+  menu.titlecanvas = lg.newCanvas(width, height+10)
   lg.setCanvas(menu.titlecanvas)
     lg.setColor(255,230,0)
-    lg.print("Banana")
+    lg.print("Banana",0,0,0,8,8)
+    lg.setColor(255,255,255)
+    love.graphics.print("Choose your goal!",2,height-26,0,2)
   lg.setCanvas()
   
   menu.titleHue = 0
@@ -46,6 +48,30 @@ end
 
 
 
+function Menu:keypressed(key)
+  local gameVariant = nil
+  if key == "1" or key == "kp1" then
+    gameVariant = "delight"
+  elseif key == "2" or key == "kp2" then
+    gameVariant = "bored"
+  elseif key == "3" or key == "kp3" then
+    gameVariant = "scared"
+  end
+  
+  if gameVariant then
+    self.game.variant = gameVariant
+    self.game.state = {
+      update = function() end,
+      drawGUI = function()
+        lg.setColor(255,255,255)
+        lg.print(gameVariant, 300,300, 0, 6, 6)
+      end
+    }
+  end
+end
+
+
+
 function Menu:update(dt)
   local titleTweenComplete = self.titleTween:update(dt)
   if titleTweenComplete then
@@ -60,7 +86,7 @@ function Menu:update(dt)
   lg.setCanvas(self.titlecanvas)
     local width = lg.getFont():getWidth("Banana ")
     lg.setColor(hsvtorgb(self.titleHue,255,255))
-    lg.print("TV",width)
+    lg.print("TV",width*self.titleScale, 0, 0, self.titleScale)
   lg.setCanvas()
   
   self.changeTimer = self.changeTimer - dt
@@ -153,12 +179,12 @@ function Menu:drawGUI()
   local width = self.titlecanvas:getWidth()
   local height = self.titlecanvas:getHeight()
   lg.setColor(255,255,255,170)
-  lg.draw(self.titlecanvas, globals.config.resX/2, 160, self.titleTilt, self.titleScale, self.titleScale, width/2, height/2)
+  lg.draw(self.titlecanvas, globals.config.resX/2, 160, self.titleTilt, 1, 1, width/2, height/2)
   
   height = 450
-  drawAtHeight("[1] Try to delight", height,     3, {0,238,0}   )
-  drawAtHeight("[2] Try to bore",    height+70,  3, {238,238,0} )
-  drawAtHeight("[3] Try to scare",   height+140, 3, {238,0,0}   )
+  drawAtHeight("[1] Delight people",    height,     3, {0,238,0}   )
+  drawAtHeight("[2] Make people bored", height+70,  3, {238,238,0} )
+  drawAtHeight("[3] Scare people",      height+140, 3, {238,0,0}   )
 end
 
 

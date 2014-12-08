@@ -44,7 +44,7 @@ function love.keypressed(key)
     end
   elseif key == "escape" then
     love.event.quit()
-  elseif key == "kp1" then
+  elseif key == "kp/" then
     game.timer:start(function() game.scene.tvframe:startNoise() end, 3)
   end
 end
