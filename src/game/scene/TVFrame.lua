@@ -17,7 +17,7 @@ function TVFrame.new()
     tick = 0,
     duration = 0.5,
     alpha = 0,
-    scale = 8,
+    scale = 6,
     sound = love.audio.newSource("assets/sounds/static.wav", "static")
   }
   tvf.noise.canvas = lg.newCanvas(globals.config.resX/tvf.noise.scale, globals.config.resY/tvf.noise.scale)
