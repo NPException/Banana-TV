@@ -2,7 +2,7 @@
 -- Action: Fungun
 -- --------------------------
 return {
-  name = "fun gun",
+  name = "fungun",
   animation = love.graphics.newImage("assets/actions/fungun_dev.png"),  -- Filepath
   icon =  love.graphics.newImage("assets/actions/fungun_dev.png"),
   score = {

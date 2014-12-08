@@ -2,7 +2,7 @@
 -- Action: Puppetshow
 -- --------------------------
 return {
-  name = "puppet show",
+  name = "puppetshow",
   animation = love.graphics.newImage("assets/actions/puppetshow_dev.png"),  -- Filepath
   icon = love.graphics.newImage("assets/actions/puppetshow_dev.png"),
   score = {

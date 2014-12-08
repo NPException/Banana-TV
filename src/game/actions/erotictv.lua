@@ -2,7 +2,7 @@
 -- Action: erotic tv
 -- --------------------------
 return {
-  name = "erotic tv",
+  name = "erotictv",
   animation = love.graphics.newImage("assets/actions/erotictv_dev.png"),  -- Filepath
   icon = love.graphics.newImage("assets/actions/erotictv_dev.png"),
   score = {
