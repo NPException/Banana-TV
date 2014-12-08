@@ -59,8 +59,6 @@ end
 
 local lg = love.graphics
 function Game:draw()
-  local mx,my = love.mouse.getPosition() -- for debuging only
-  
   local state = self.state
   
   
@@ -106,7 +104,18 @@ function Game:draw()
 
 
   if globals.debug then
-    lg.print(love.timer.getFPS(), 1,1)
+    -- print FPS
+    lg.setColor(255,255,255)
+    lg.print(love.timer.getFPS(), 3,3,0,2,2)
+    
+    -- print Spots
+    lg.setLineWidth(2)
+    for _,spot in ipairs(self.scene.room.spots.all) do
+      lg.setColor(255,0,0)
+      lg.circle("fill", spot.x, spot.y, 10,20)
+      lg.setColor(0,0,0)
+      lg.circle("line", spot.x, spot.y, 10,20)
+    end
   end
 end
 

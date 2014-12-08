@@ -76,13 +76,6 @@ end
 function Room:drawFurniture()
   self.table:draw()
   self.couch:draw()
-  
-  if globals.debug then
-    lg.setColor(0,255,0)
-    for _,spot in ipairs(self.spots.all) do
-      lg.circle("line", spot.x, spot.y, 10)
-    end
-  end
 end
 
 

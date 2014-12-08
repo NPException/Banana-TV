@@ -16,17 +16,21 @@ function State:update(dt)
 end
 
 
--- OPTIONAL --
+-- OPTIONAL -- draws everything that is placed at the wall, behind the couch
+function State:drawWall()
+  
+
+-- OPTIONAL -- draws everything on or in front of the couch
 function State:drawRoom()
 end
 
 
--- OPTIONAL --
+-- OPTIONAL -- draws whatever should be on the tv screen. is overlayed by the tv-frame
 function State:drawTV()
 end
 
 
--- OPTIONAL --
+-- OPTIONAL -- draws GUI elements of this state. is drawn on top of the tv-frame
 function State:drawGUI()
 end
 

@@ -13,11 +13,28 @@ local moods = {
 local helptext = {
   [[
     Welcome to Banana TV!
+    (Use the left and right arrows to navigate)
   
     You are a little gnome inside a TV-Monitor who decides what the family members are going to watch.
     
     First, you have to decide what reactions you are aiming to cause in your audience.
-    That choice will be mentioned in the highscore.
+    That choice will later be mentioned in the highscore.
+  ]],
+  [[
+    Each round of the game consists of 3 different steps:
+    
+    == STEP 1 - the preview ==
+    You will see the empty room with a few items being in it. Those items indicate the character(s) that will watch TV in step 3.
+    
+    == STEP 2 - the choice ==
+    Now you have to decide which program you want to show to your audience. Make the choice depending on the audience you expect\
+    and the goal you are trying to achieve.
+  ]],
+  [[
+    == STEP 3 - the show ==
+    At this point you will see the character(s) that will be watching your show. Depending on the choice you made in the previous\
+    step, the characters might be bored, delighted or even scared by the show.
+    Your scores will increased based on that.
   ]]
 }
 
@@ -183,26 +200,19 @@ function Menu:drawRoom()
 end
 
 
-local canvases = {}
 local function printTiltedWithBackground(text, x, y, scale, color)
-  local canvas = canvases[text]
-  if not canvas then
-    local width = lg.getFont():getWidth(text)
-    local height = lg.getFont():getHeight()
-    canvas = lg.newCanvas(width+4, height+4)
-    lg.setCanvas(canvas)
-      lg.setColor(0,0,0,170)
-      lg.rectangle("fill",0,0,canvas:getWidth(), canvas:getHeight())
-    lg.setCanvas()
-    canvases[text] = canvas
-  end
+  local width = lg.getFont():getWidth(text)+4
+  local height = lg.getFont():getHeight()+4
   
-  lg.setCanvas(canvas)
+  lg.push()
+    lg.translate(x,y)
+    lg.scale(scale,scale)
+    lg.rotate(0.05)
+    lg.setColor(0,0,0,170)
+    lg.rectangle("fill",-width/2,-height/2,width, height)
     lg.setColor(color)
-    lg.print(text, 2, 2)
-  lg.setCanvas()
-  lg.setColor(255,255,255,255)
-  lg.draw(canvas, x, y, 0.05, scale, scale, canvas:getWidth()/2, canvas:getHeight()/2)
+    lg.print(text, 2-width/2, 2-height/2)
+  lg.pop()
 end
 
 
@@ -214,7 +224,7 @@ function Menu:drawGUI()
     local offY = y*0.3
     local w = globals.config.resX - (x*2)
     local h = globals.config.resY - (y*2)
-    lg.setColor(0,0,0,180)
+    lg.setColor(0,0,0,230)
     lg.rectangle("fill", x-10, y-10-offY, w+20, h+20)
     
     lg.setColor(255,255,255)
