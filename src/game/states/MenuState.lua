@@ -149,7 +149,7 @@ function Menu:update(dt)
         table.remove(charsCopy, index)
         
         char.mood = moods[math.random(1,#moods)]
-        table.insert(self.usedChars, {drawable=char, spot=spot})
+        table.insert(self.usedChars, {char=char, spot=spot})
         continue = true
       end
       
@@ -168,10 +168,14 @@ function Menu:update(dt)
         
         if item then
           table.remove(itemsCopy, index)
-          table.insert(self.usedItems, {drawable=item, spot=spot})
+          table.insert(self.usedItems, {item=item, spot=spot})
         end
       end
     end
+  end
+  
+  for _,entry in ipairs(self.usedChars) do
+    entry.char:update(dt)
   end
 end
 
@@ -180,7 +184,7 @@ function Menu:drawWall()
   -- draw items
   for _,entry in ipairs(self.usedItems) do
     if entry.spot.type == "wall" then
-      entry.drawable:draw(entry.spot)
+      entry.item:draw(entry.spot)
     end
   end
 end
@@ -190,12 +194,12 @@ function Menu:drawRoom()
   -- draw items
   for _,entry in ipairs(self.usedItems) do
     if entry.spot.type ~= "wall" then
-      entry.drawable:draw(entry.spot)
+      entry.item:draw(entry.spot)
     end
   end
   -- draw characters
   for _,entry in ipairs(self.usedChars) do
-    entry.drawable:draw(entry.spot)
+    entry.char:draw(entry.spot)
   end
 end
 

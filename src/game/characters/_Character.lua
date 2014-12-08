@@ -2,6 +2,7 @@ local Character = {}
 Character.__index = Character
 
 local globals = GLOBALS
+local tween = require("lib.tween")
 
 
 
@@ -16,13 +17,49 @@ function Character.new(id, charTable)
     bored   = { charTable.images.bored[1],   charTable.images.bored[2],   charTable.images.bored[3]   },
     delight = { charTable.images.delight[1], charTable.images.delight[2], charTable.images.delight[3] }
   }
+  char.tilt = 0
+  char.stretch = 1
   char.mood = "bored"
   return char
 end
 
 
 
-function Character:update(action)
+function Character:update(dt)
+  if self.mood == "scared" then
+    local done = true
+    if self.tiltTween then
+      done = self.tiltTween:update(dt)
+    end
+    if done then
+      local easing = "inOutQuad"
+      if self.tilt < 0 then
+        self.tiltTween = tween.new(0.1, self, {tilt=0.02}, easing)
+      else
+        self.tiltTween = tween.new(0.1, self, {tilt=-0.02}, easing)
+      end
+    end
+  elseif self.mood == "delight" then
+    local done = true
+    if self.stretchTween then
+      done = self.stretchTween:update(dt)
+    end
+    if done then
+      local easing = "inOutSine"
+      if self.stretch < 1 then
+        self.stretchTween = tween.new(0.1, self, {stretch=1.02}, easing)
+      else
+        self.stretchTween = tween.new(0.2, self, {stretch=0.98}, easing)
+      end
+    end
+  end
+end
+
+
+
+function Character:updateMood(action)
+  self.tilt = 0
+  self.stretch = 1
   self.mood = "bored"
   local scores = action.score[self.id]
   if scores then
@@ -42,7 +79,7 @@ local lg = love.graphics
 function Character:draw(pos)
   lg.setColor(255,255,255)
   local img = self.images[self.mood]
-  lg.draw(img[1], pos.x-img[2]*self.scale, pos.y-img[3]*self.scale, 0, self.scale, self.scale)
+  lg.draw(img[1], pos.x, pos.y, self.tilt, self.scale, self.scale*self.stretch, img[2], img[3])
 end
 
 return Character
