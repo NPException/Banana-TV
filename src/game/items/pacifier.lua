@@ -1,8 +1,8 @@
 return {
   name = "pacifier",
-  image = love.graphics.newImage("assets/items/pacifier.png"),
-  offsetX = 0,
-  offsetY = 0,
+  image = love.graphics.newImage("assets/items/pacifier_dev.png"),
+  offsetX = 27,
+  offsetY = 27,
   positions = {
     wall=false,
     armrests=true,
