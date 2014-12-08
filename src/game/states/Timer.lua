@@ -18,9 +18,11 @@ end
 function Timer:update(dt)
   if self.isRunning then
     
-    if not self.oldtime or self.oldtime ~= math.floor(self.runtime) and self.oldtime > 0 then
-      self.beep:play()
-      self.oldtime = math.floor(self.runtime)
+    if self.oldtime > math.floor(self.runtime+1) and self.oldtime > 0 then
+      if self.oldtime > 1 then
+        self.beep:play()
+      end
+      self.oldtime = math.floor(self.runtime+1)
     end
 
     if self.runtime <= 0 then
@@ -40,13 +42,15 @@ function Timer:draw()
   lg.setColor(255,255,255)
   lg.circle("fill", globals.config.resX - ( globals.config.resX / 2 ), globals.config.resY - ( globals.config.resY / 2), radius, 50)
   if self.runtime then
-    lg.printf(math.floor(self.runtime + 0.5), globals.config.resX - ( globals.config.resX / 2 ), globals.config.resY - ( globals.config.resY / 2),5)
+    lg.printf(self.oldtime, globals.config.resX - ( globals.config.resX / 2 ), globals.config.resY - ( globals.config.resY / 2),5)
   end
   -- TODO draw timer
 end
 
 function Timer:start(callback, runtime)
+  self.beep:play()
   self.runtime = runtime
+  self.oldtime = runtime
   self.isRunning = true
   self.callback = callback
 end
