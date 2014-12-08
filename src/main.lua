@@ -1,5 +1,6 @@
 require("lib.stringfunctions")
 require("lib.requirefolder")
+require("lib.hsv")
 
 GLOBALS = { debug=false }
 local globals = GLOBALS

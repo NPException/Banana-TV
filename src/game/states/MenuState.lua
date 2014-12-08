@@ -19,15 +19,27 @@ function Menu.new(game)
   menu:resetTitleTween()
   menu.stuff = {}
   menu.changeTimer = 0
+  
+  local width = lg.getFont():getWidth("Banana TV")
+  local height = lg.getFont():getHeight()
+  menu.titlecanvas = lg.newCanvas(width,height)
+  lg.setCanvas(menu.titlecanvas)
+    lg.setColor(255,230,0)
+    lg.print("Banana")
+  lg.setCanvas()
+  
+  menu.titleHue = 0
+  menu.titleHueTween = tween.new(1, menu, {titleHue=255}, "linear")
+  
   return menu
 end
 
 
 function Menu:resetTitleTween()
   if self.titleTilt>0 then
-    self.titleTween = tween.new(2, self, {titleTilt=-0.1}, 'inOutBack')
+    self.titleTween = tween.new(2, self, {titleTilt=-0.1}, "inOutBack")
   else
-    self.titleTween = tween.new(2, self, {titleTilt=0.1}, 'inOutBack')
+    self.titleTween = tween.new(2, self, {titleTilt=0.1}, "inOutBack")
   end
 end
 
@@ -38,6 +50,17 @@ function Menu:update(dt)
   if titleTweenComplete then
     self:resetTitleTween()
   end
+  
+  local titleHueTweenComplete = self.titleHueTween:update(dt)
+  if titleHueTweenComplete then
+    self.titleHueTween:reset()
+  end
+  
+  lg.setCanvas(self.titlecanvas)
+    local width = lg.getFont():getWidth("Banana ")
+    lg.setColor(HSVtoRGB(self.titleHue,255,255))
+    lg.print("TV",width)
+  lg.setCanvas()
   
   self.changeTimer = self.changeTimer - dt
   
@@ -103,10 +126,10 @@ end
 
 
 function Menu:drawTV()
-  local width = lg.getFont():getWidth("Banana TV")
-  local height = lg.getFont():getHeight()
-  lg.setColor(255,255,255,200)
-  love.graphics.print("Banana TV", globals.config.resX/2, 160, self.titleTilt, self.titleScale, self.titleScale, width/2, height/2)
+  local width = self.titlecanvas:getWidth()
+  local height = self.titlecanvas:getHeight()
+  lg.setColor(255,255,255,255)
+  love.graphics.draw(self.titlecanvas, globals.config.resX/2, 160, self.titleTilt, self.titleScale, self.titleScale, width/2, height/2)
 end
   
 
