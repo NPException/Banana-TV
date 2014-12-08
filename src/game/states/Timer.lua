@@ -37,12 +37,16 @@ end
 
 local lg = love.graphics
 function Timer:draw()
-  local radius = 100
+  local radius = 140
+  local scale = 18
   
-  lg.setColor(255,255,255)
-  lg.circle("fill", globals.config.resX - ( globals.config.resX / 2 ), globals.config.resY - ( globals.config.resY / 2), radius, 50)
+  lg.setColor({0,0,0,170})
+  lg.circle("fill",  globals.config.resX / 2 ,  globals.config.resY / 2, radius, 50)
   if self.runtime then
-    lg.printf(self.oldtime, globals.config.resX - ( globals.config.resX / 2 ), globals.config.resY - ( globals.config.resY / 2),5)
+    local width = lg.getFont():getWidth(self.oldtime)
+    local height = lg.getFont():getHeight()
+    lg.setColor({255,255,255,255})
+    lg.printf(self.oldtime, (globals.config.resX / 2) + 30  , globals.config.resY / 2, 5, "left", 0, scale, scale, width/2, height/2)
   end
   -- TODO draw timer
 end
