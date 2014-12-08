@@ -18,6 +18,7 @@ end
 
 -- OPTIONAL -- draws everything that is placed at the wall, behind the couch
 function State:drawWall()
+end
   
 
 -- OPTIONAL -- draws everything on or in front of the couch
