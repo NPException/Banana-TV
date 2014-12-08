@@ -3,8 +3,8 @@
 -- --------------------------
 return {
   name = "chainsaw",
-  animation = nil,  -- Filepath
-  icon = love.graphics.newImage("assets/actions/chainsaw.png"),
+  animation = love.graphics.newImage("assets/actions/chainsaw_dev.png"),  -- Filepath
+  icon = love.graphics.newImage("assets/actions/chainsaw_dev.png"),
   score = {
     baby    = { scared = 12, bored = 0, delight = 0},
     girl    = { scared = 8, bored = 0, delight = 1},

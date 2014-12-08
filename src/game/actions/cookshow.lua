@@ -3,8 +3,8 @@
 -- --------------------------
 return {
   name = "cookshow",
-  animation = nil,  -- Filepath
-  icon = love.graphics.newImage("assets/actions/cookshow.png"),
+  animation = love.graphics.newImage("assets/actions/cookshow_dev.png"),  -- Filepath
+  icon = love.graphics.newImage("assets/actions/cookshow_dev.png"),
   score = {
     baby    = { scared = 0, bored = 8, delight = 2},
     girl    = { scared = 0, bored = 2, delight = 4},

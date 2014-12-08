@@ -3,8 +3,8 @@
 -- --------------------------
 return {
   name = "funeral tv",
-  animation = nil,  -- Filepath
-  icon = love.graphics.newImage("assets/actions/funeraltv.png"),
+  animation = love.graphics.newImage("assets/actions/funeraltv_dev.png"),  -- Filepath
+  icon = love.graphics.newImage("assets/actions/funeraltv_dev.png"),
   score = {
     baby    = { scared = 0, bored = 10, delight = 0},
     girl    = { scared = 10, bored = 0, delight = 0},

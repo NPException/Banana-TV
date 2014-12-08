@@ -3,8 +3,8 @@
 -- --------------------------
 return {
   name = "fun gun",
-  animation = nil,  -- Filepath
-  icon =  love.graphics.newImage("assets/actions/fungun.png"),
+  animation = love.graphics.newImage("assets/actions/fungun_dev.png"),  -- Filepath
+  icon =  love.graphics.newImage("assets/actions/fungun_dev.png"),
   score = {
     baby    = { scared = 1, bored = 2, delight = 5},
     girl    = { scared = 0, bored = 8, delight = 0},

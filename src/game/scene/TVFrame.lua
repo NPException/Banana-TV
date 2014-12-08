@@ -52,7 +52,7 @@ function TVFrame:update(dt)
     if self.noise.start then
       if self.noise.loop then
         self.noise.soundloop:play()
-      else
+      elseif not self.noise.soundloop:isPlaying() then
         self.noise.sound:play()
       end
       self.noise.start = false

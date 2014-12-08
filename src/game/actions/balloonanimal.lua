@@ -3,8 +3,8 @@
 -- --------------------------
 return {
   name = "balloonanimal",
-  animation = nil,  -- Filepath
-  icon = love.graphics.newImage("assets/actions/balloonanimal.png"),
+  animation = love.graphics.newImage("assets/actions/balloonanimal_dev.png"),
+  icon = love.graphics.newImage("assets/actions/balloonanimal_dev.png"),
   score = {
     baby    = { scared = 0, bored = 0, delight = 8},
     girl    = { scared = 0, bored = 6, delight = 2},

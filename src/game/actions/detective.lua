@@ -3,8 +3,8 @@
 -- --------------------------
 return {
   name = "detective with magnifier",
-  animation = nil,  -- Filepath
-  icon = love.graphics.newImage("assets/actions/detective.png"),
+  animation = love.graphics.newImage("assets/actions/detective_dev.png"),  -- Filepath
+  icon = love.graphics.newImage("assets/actions/detective_dev.png"),
   score = {
     baby    = { scared = 8, bored = 0, delight = 0},
     girl    = { scared = 2, bored = 4, delight = 2},
