@@ -7,27 +7,39 @@ function Choice.new(game)
   local choice = setmetatable({}, Choice)
   
   choice.game = game
+  choice.started = true
   
   return choice
 end
 
 
 function Choice:update(dt)
-  self.game.scene.tvframe:startNoise(true)
+  if self.started then
+    self.started = false
+    self.game.scene.tvframe:startNoise(true)
+  end
 end
+
 
 local lg = love.graphics
 function Choice:drawGUI()
-  local imgX = 100
-  local imgY = 100
-  local scale = 0.5
-  for _,v in pairs(self.game.actions) do
-    lg.rectangle("fill", imgX, imgY, 160, 85)
-    lg.draw(lg.newImage("assets/actions/" .. v.name .. "_dev.png"),imgX,imgY, 0, scale)
-    imgX = imgX + 180
-    if  imgX > globals.config.resX - 180 then
-      imgX = 100
-      imgY = imgY + 100
+  local partX = globals.config.resX/7
+  local partY = globals.config.resY/4
+  local imgX = partX
+  local imgY = partY
+  
+  local size = 128
+  
+  for _,action in pairs(self.game.actions) do
+    lg.setColor(0,0,0,200)
+    lg.rectangle("fill", imgX-size/2, imgY-size/2, size, size)
+    lg.setColor(255,255,255)
+    lg.draw(action.icon,imgX,imgY, 0, size/action.icon:getWidth(), size/action.icon:getHeight(),
+            action.icon:getWidth()/2,action.icon:getHeight()/2)
+    imgX = imgX+partX
+    if  imgX > globals.config.resX - partX then
+      imgX = partX
+      imgY = imgY + partY
     end
     
   end
