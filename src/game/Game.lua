@@ -43,22 +43,15 @@ function Game.new()
 end
 
 
--- TEST STUFF
-local moods = {
-  "bored", "scared", "delight"
-}
 
 
 function Game:update(dt)
   self.scene.room:update(dt)
+  
   self.scene.tvframe:update(dt)
   
-  local currentMood = moods[math.floor((globals.time%3)+1)]
-  for _,char in pairs(self.characters) do
-    char.mood = currentMood
-  end
-  
   self.state:update(dt)
+  
   self.timer:update(dt)
 end
 
@@ -72,12 +65,6 @@ function Game:draw()
   
   -- draw room background
   self.scene.room:draw()
-  
-  local count = 0
-  for _,char in ipairs(self.characters) do
-    char:draw({x=globals.offX+(mx+count*200/globals.scale)*globals.scale, y=globals.offY+my*globals.scale})
-    count = count + 1
-  end
   
   -- draw state dependent room and tv contents
   if state.drawRoom then state:drawRoom() end
