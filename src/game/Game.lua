@@ -71,7 +71,7 @@ function Game:draw()
   
   local count = 0
   for _,char in pairs(self.characters) do
-    char:draw({x=mx+count*200, y=my})
+    char:draw({x=globals.offX+(mx+count*200/globals.scale)*globals.scale, y=globals.offY+my*globals.scale})
     count = count + 1
   end
   
