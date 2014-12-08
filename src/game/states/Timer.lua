@@ -6,10 +6,13 @@ local globals = GLOBALS
 -- Constructor
 function Timer.new()
   local timer = setmetatable({}, Timer)
-  -- instanzvariablen initialisieren
   
+  timer.isStarted = true
+  timer.runtime = 0
+  timer.oldtime = 0
+  timer.isRunning = false
+  timer.callback = nil
   timer.beep = love.audio.newSource("assets/sounds/timerbeep.wav", "static")
-  timer.oldtime = nil
   
   return timer
 end
@@ -17,7 +20,10 @@ end
 
 function Timer:update(dt)
   if self.isRunning then
-    
+    if self.isStarted then
+      self.beep:play()
+      self.isStarted = false
+    end
     if self.oldtime > math.floor(self.runtime+1) and self.oldtime > 0 then
       if self.oldtime > 1 then
         self.beep:play()
@@ -52,7 +58,7 @@ function Timer:draw()
 end
 
 function Timer:start(callback, runtime)
-  self.beep:play()
+  self.isStarted = true
   self.runtime = runtime
   self.oldtime = runtime
   self.isRunning = true

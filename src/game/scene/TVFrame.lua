@@ -14,6 +14,7 @@ function TVFrame.new()
   local tvf = setmetatable({}, TVFrame)
   tvf.timer = 0
   tvf.noise = {
+    start = false,
     tick = 0,
     duration = 0.5,
     alpha = 0,
@@ -29,7 +30,7 @@ end
 function TVFrame:startNoise()
   self.noise.tick = 0
   self.noise.alpha = 255
-  self.noise.sound:play()
+  self.noise.start = true
 end
 
 
@@ -39,6 +40,10 @@ function TVFrame:update(dt)
   
   -- update white noise
   if self.noise.alpha > 0 then
+    if self.noise.start then
+      self.noise.sound:play()
+      self.noise.start = false
+    end
     if self.noise.tick > 0 then
       self.noise.tick = self.noise.tick - dt*20
     else

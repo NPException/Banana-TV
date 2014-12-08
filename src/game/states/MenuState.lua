@@ -8,11 +8,14 @@ local lg = love.graphics
 
 
 
-function Menu.new()
+function Menu.new(game)
   local menu = setmetatable({}, Menu)
+  menu.game = game
   menu.titleScale = 8
   menu.titleTilt = 0.1
   menu:resetTitleTween()
+  menu.stuff = {}
+  menu.changeTimer = 0
   return menu
 end
 
@@ -30,6 +33,12 @@ function Menu:update(dt)
   local titleTweenComplete = self.titleTween:update(dt)
   if titleTweenComplete then
     self:resetTitleTween()
+  end
+  
+  self.changeTimer = self.changeTimer + dt
+  
+  if self.changeTimer > 5 then
+    self.changeTimer = 0
   end
 end
 

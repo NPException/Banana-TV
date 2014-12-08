@@ -18,21 +18,21 @@ function Game.new()
   local Action = require("game.actions._Action")
   g.actions = {}
   for key,actionTable in pairs(requirefolder("game/actions")) do
-    g.actions[key] = Action.new(key, actionTable)
+    table.insert(g.actions, Action.new(key, actionTable))
   end
   
   -- initialize items
   local Item = require("game.items._Item")
   g.items = {}
   for key,itemTable in pairs(requirefolder("game/items")) do
-    g.items[key] = Item.new(key, itemTable)
+    table.insert(g.items, Item.new(key, itemTable))
   end
   
   -- initialize characters
   local Character = require("game.characters._Character")
   g.characters = {}
   for key,charTable in pairs(requirefolder("game/characters")) do
-    g.characters[key] = Character.new(key, charTable)
+    table.insert(g.characters, Character.new(key, charTable))
   end
   
   -- init timer
@@ -74,7 +74,7 @@ function Game:draw()
   self.scene.room:draw()
   
   local count = 0
-  for _,char in pairs(self.characters) do
+  for _,char in ipairs(self.characters) do
     char:draw({x=globals.offX+(mx+count*200/globals.scale)*globals.scale, y=globals.offY+my*globals.scale})
     count = count + 1
   end
