@@ -9,6 +9,10 @@ function Choice.new(game)
   choice.game = game
   choice.started = true
   
+  choice.actions = {
+      -- { action=_THEACTION_, rect={x=0,y=0,w=128,h=128} }
+  }
+  
   return choice
 end
 
