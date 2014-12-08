@@ -8,6 +8,7 @@ local globals = GLOBALS
 function Game.new()
   local g = setmetatable({}, Game)
   g.score = {scared=2151, bored=99999, delight=221}
+  g.showScore = false
   g.scene = {
     room = require("game.scene.Room").new(),
     tvframe = require("game.scene.TVFrame").new()
@@ -34,7 +35,7 @@ function Game.new()
     g.characters[key] = Character.new(key, charTable)
   end
   
-  g.state = { update = function() end } -- TODO
+  g.state = require("game.states.MenuState").new(g)
   return g
 end
 
@@ -83,23 +84,25 @@ function Game:draw()
   
   if state.drawGUI then state:drawGUI() end
   
-  -- TODO draw score --
-  local txtWidth = 260
-  local scoreWidth = 180
-  local baseRadi = 0.08
-  local fontSize = 1.5
-  -- Scared
-  lg.setColor(238, 0, 0) -- red
-  lg.printf("Scared: ", (globals.config.resX - txtWidth), 45, 50, "right", baseRadi, fontSize)
-  lg.printf(self.score.scared, (globals.config.resX - scoreWidth), 51, 100, "left", baseRadi, fontSize)
-  -- Bored
-  lg.setColor(238, 238, 0) -- yellow
-  lg.printf("Bored: ", (globals.config.resX - txtWidth), 75, 50, "right", baseRadi, fontSize)
-  lg.printf(self.score.bored, (globals.config.resX - scoreWidth), 81, 100, "left", baseRadi, fontSize)
-  -- Delight
-  lg.setColor(0, 238, 0) -- green
-  lg.printf("Delight: ", (globals.config.resX - txtWidth), 105, 50, "right", baseRadi, fontSize)
-  lg.printf(self.score.delight, (globals.config.resX - scoreWidth), 111, 100, "left", baseRadi, fontSize)
+  -- draw score --
+  if self.showScore then
+    local txtWidth = 260
+    local scoreWidth = 180
+    local baseRadi = 0.08
+    local fontSize = 1.5
+    -- Scared
+    lg.setColor(238, 0, 0) -- red
+    lg.printf("Scared: ", (globals.config.resX - txtWidth), 45, 50, "right", baseRadi, fontSize)
+    lg.printf(self.score.scared, (globals.config.resX - scoreWidth), 51, 100, "left", baseRadi, fontSize)
+    -- Bored
+    lg.setColor(238, 238, 0) -- yellow
+    lg.printf("Bored: ", (globals.config.resX - txtWidth), 75, 50, "right", baseRadi, fontSize)
+    lg.printf(self.score.bored, (globals.config.resX - scoreWidth), 81, 100, "left", baseRadi, fontSize)
+    -- Delight
+    lg.setColor(0, 238, 0) -- green
+    lg.printf("Delight: ", (globals.config.resX - txtWidth), 105, 50, "right", baseRadi, fontSize)
+    lg.printf(self.score.delight, (globals.config.resX - scoreWidth), 111, 100, "left", baseRadi, fontSize)
+  end
 
 
   if globals.debug then
