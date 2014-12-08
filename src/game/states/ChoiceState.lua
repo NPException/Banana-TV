@@ -60,7 +60,22 @@ function Choice:drawGUI()
 end
 
 function Choice:mousepressed(x,y,button)
-  
+  if button == "l" then
+    for _,entry in ipairs(self.actions) do
+      local action = entry.action
+      local rect = entry.rect
+      
+      if (rect.x <= x
+      and rect.x+rect.w  >=  x
+      and rect.y <= y
+      and rect.y+rect.h >= y) then
+        self.game.run.action = action
+        self.game.state = require("game.states.RunState").new(self.game)
+        break
+      end
+      
+    end
+  end
 end
 
 return Choice
