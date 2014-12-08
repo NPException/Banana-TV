@@ -71,6 +71,7 @@ function Character:updateMood(action)
       end
     end
   end
+  return lowCopy(scores)
 end
 
 
