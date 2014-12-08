@@ -68,10 +68,12 @@ end
 
 
 local lg = love.graphics
-function Room:draw()
+function Room:drawRoom()
   lg.setColor(255,255,255)
   lg.draw(roomImage,0,0)
-  
+end
+
+function Room:drawFurniture()
   self.table:draw()
   self.couch:draw()
   
@@ -82,7 +84,6 @@ function Room:draw()
     end
   end
 end
-
 
 
 return Room

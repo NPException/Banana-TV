@@ -1,6 +1,6 @@
-function buildProbabilityList(table)
+function buildProbabilityList(tbl)
   local list = {}
-  for key,count in pairs(table) do
+  for key,count in pairs(tbl) do
     if (count < 1) then
       error("count for key is lower than 1!")
     end
@@ -9,4 +9,14 @@ function buildProbabilityList(table)
     end
   end
   return list
+end
+
+
+
+function lowCopy(tbl)
+  local copy = {}
+  for k,v in pairs(tbl) do
+    copy[k] = v 
+  end
+  return copy
 end

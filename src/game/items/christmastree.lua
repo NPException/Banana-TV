@@ -5,7 +5,7 @@ return {
   offsetY = 34,
   positions = {
     wall=false,
-    armrests=false,
+    armrest=false,
     seats=false,
     table=false,
     floor=true

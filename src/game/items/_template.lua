@@ -5,7 +5,7 @@ return {
   offsetY = 0,
   positions = { -- positions where the item can appear
     wall=true,
-    armrests=true,
+    armrest=true,
     seats=true,
     table=true,
     floor=true

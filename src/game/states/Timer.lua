@@ -47,12 +47,12 @@ function Timer:draw()
     local radius = 140
     local scale = 18
 
-    lg.setColor({0,0,0,170})
+    lg.setColor({0,0,0,100})
     lg.circle("fill",  globals.config.resX / 2 ,  globals.config.resY / 2, radius)
   
     local width = lg.getFont():getWidth("0")
     local height = lg.getFont():getHeight()
-    lg.setColor({255,255,255})
+    lg.setColor({255,255,255,180})
     lg.print(self.oldtime, globals.config.resX/2, globals.config.resY/2, 0, scale, scale, width/2-0.5, height/2-0.5)
   end
 end

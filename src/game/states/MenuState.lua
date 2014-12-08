@@ -10,10 +10,25 @@ local moods = {
   "bored", "scared", "delight"
 }
 
+local helptext = {
+  [[
+    Welcome to Banana TV!
+  
+    You are a little gnome inside a TV-Monitor who decides what the family members are going to watch.
+    
+    First, you have to decide what reactions you are aiming to cause in your audience.
+    That choice will be mentioned in the highscore.
+  ]]
+}
+
 
 
 function Menu.new(game)
   local menu = setmetatable({}, Menu)
+  
+  game.showScore = false
+  game.score = {scared=0, bored=0, delight=0}
+  
   menu.game = game
   menu.titleScale = 8
   menu.titleTilt = 0.1
@@ -33,6 +48,9 @@ function Menu.new(game)
   
   menu.titleHue = 0
   menu.titleHueTween = tween.new(1, menu, {titleHue=255}, "linear")
+  
+  menu.showHelp = false
+  menu.helpPage = 1
   
   return menu
 end
@@ -56,11 +74,20 @@ function Menu:keypressed(key)
     gameVariant = "bored"
   elseif key == "3" or key == "kp3" then
     gameVariant = "scared"
+  elseif key == "4" or key == "kp4" then
+    self.showHelp = not self.showHelp
+  elseif self.showHelp then
+    if key=="left" then
+      self.helpPage = math.max(1, self.helpPage-1)
+    elseif key == "right" then
+      self.helpPage = math.min(#helptext, self.helpPage+1)
+    end
   end
   
   if gameVariant then
     self.game.variant = gameVariant
-    --self.game.state = require("game.states.PreviewState").new()
+    self.game.showScore = true
+    self.game.state = require("game.states.PreviewState").new(self.game)
     self.game.scene.tvframe:startNoise()
   end
 end
@@ -93,51 +120,61 @@ function Menu:update(dt)
     self.usedChars = {}
     self.usedItems = {}
     
+    local charsCopy = lowCopy(self.game.characters)
+    local itemsCopy = lowCopy(self.game.items)
+    
     for _,spot in ipairs(self.game.scene.room.spots.all) do
       local continue = false
       -- check characters first
       if spot.type == "seat" and math.random() < 0.7 then
-        local char
-        repeat
-          char = self.game.characters[math.random(1,#self.game.characters)]
-          local alreadyInUse = false
-          for _,v in ipairs(self.usedChars) do
-            if v.drawable == char then
-              alreadyInUse = true
-              break
-            end
-          end
-        until not alreadyInUse
+        local index = math.random(1,#charsCopy)
+        local char = charsCopy[index]
+        table.remove(charsCopy, index)
+        
         char.mood = moods[math.random(1,#moods)]
         table.insert(self.usedChars, {drawable=char, spot=spot})
         continue = true
       end
       
-      if not continue and math.random() < 0.1 then
+      if not continue and math.random() < 0.2 and #itemsCopy>0 then
         local item
---        repeat
-          item = self.game.items[math.random(1,#self.game.items)]
-          local alreadyInUse = false
-          for _,v in ipairs(self.usedItems) do
-            if v.drawable == item then
-              alreadyInUse = true
-              break
-            end
+        local index
+        for i=1,100 do
+          index = math.random(1,#itemsCopy)
+          item = itemsCopy[index]
+          if item.positions[spot.type] then
+            break
+          else
+            item = nil
           end
---        until not alreadyInUse
-        table.insert(self.usedItems, {drawable=item, spot=spot})
-        continue = true
+        end
+        
+        if item then
+          table.remove(itemsCopy, index)
+          table.insert(self.usedItems, {drawable=item, spot=spot})
+        end
       end
     end
   end
 end
 
 
+function Menu:drawWall()
+  -- draw items
+  for _,entry in ipairs(self.usedItems) do
+    if entry.spot.type == "wall" then
+      entry.drawable:draw(entry.spot)
+    end
+  end
+end
+
 
 function Menu:drawRoom()
   -- draw items
   for _,entry in ipairs(self.usedItems) do
-    entry.drawable:draw(entry.spot)
+    if entry.spot.type ~= "wall" then
+      entry.drawable:draw(entry.spot)
+    end
   end
   -- draw characters
   for _,entry in ipairs(self.usedChars) do
@@ -147,14 +184,14 @@ end
 
 
 local canvases = {}
-local function drawAtHeight(text, y, scale, color)
+local function printTiltedWithBackground(text, x, y, scale, color)
   local canvas = canvases[text]
   if not canvas then
     local width = lg.getFont():getWidth(text)
     local height = lg.getFont():getHeight()
     canvas = lg.newCanvas(width+4, height+4)
     lg.setCanvas(canvas)
-      lg.setColor(0,0,0,200)
+      lg.setColor(0,0,0,170)
       lg.rectangle("fill",0,0,canvas:getWidth(), canvas:getHeight())
     lg.setCanvas()
     canvases[text] = canvas
@@ -164,22 +201,53 @@ local function drawAtHeight(text, y, scale, color)
     lg.setColor(color)
     lg.print(text, 2, 2)
   lg.setCanvas()
-  lg.setColor(255,255,255,200)
-  lg.draw(canvas, globals.config.resX/2, y, 0.05, scale, scale, canvas:getWidth()/2, canvas:getHeight()/2)
+  lg.setColor(255,255,255,255)
+  lg.draw(canvas, x, y, 0.05, scale, scale, canvas:getWidth()/2, canvas:getHeight()/2)
 end
 
 
 
 function Menu:drawGUI()
-  local width = self.titlecanvas:getWidth()
-  local height = self.titlecanvas:getHeight()
-  lg.setColor(255,255,255,170)
-  lg.draw(self.titlecanvas, globals.config.resX/2, 160, self.titleTilt, 1, 1, width/2, height/2)
-  
-  height = 450
-  drawAtHeight("[1] Delight people",    height,     3, {0,238,0}   )
-  drawAtHeight("[2] Make people bored", height+70,  3, {238,238,0} )
-  drawAtHeight("[3] Scare people",      height+140, 3, {238,0,0}   )
+  if self.showHelp then
+    local x = globals.config.resX/12
+    local y = globals.config.resY/6
+    local offY = y*0.3
+    local w = globals.config.resX - (x*2)
+    local h = globals.config.resY - (y*2)
+    lg.setColor(0,0,0,180)
+    lg.rectangle("fill", x-10, y-10-offY, w+20, h+20)
+    
+    lg.setColor(255,255,255)
+    local scale = 2
+    lg.printf(helptext[self.helpPage], x, y-offY, w/scale, "left", 0, scale, scale)
+    
+    local fontH = lg.getFont():getHeight()
+    lg.setColor(238,238,0)
+    if self.helpPage > 1 then
+      lg.printf("Previous", x, y-offY+h-fontH*scale, w/scale, "left", 0, scale, scale)
+    end
+    lg.printf("Page "..self.helpPage.."/"..#helptext, x, y-offY+h-fontH*scale, w/scale, "center", 0, scale, scale)
+    if self.helpPage < #helptext then
+      lg.printf("Next", x, y-offY+h-fontH*scale, w/scale, "right", 0, scale, scale)
+    end
+    
+    local half = globals.config.resX/2
+    lg.setColor(255,255,255)
+    printTiltedWithBackground("Press [4] to go back", half, y+h+offY, 2, {255,255,255} )
+    
+  else
+    local width = self.titlecanvas:getWidth()
+    local height = self.titlecanvas:getHeight()
+    local half = globals.config.resX/2
+    lg.setColor(255,255,255,170)
+    lg.draw(self.titlecanvas, half, 160, self.titleTilt, 1, 1, width/2, height/2)
+    
+    height = 450
+    printTiltedWithBackground("[1] Delight people",    half, height,     3, {0,238,0}     )
+    printTiltedWithBackground("[2] Make people bored", half, height+70,  3, {238,238,0}   )
+    printTiltedWithBackground("[3] Scare people",      half, height+140, 3, {238,0,0}     )
+    printTiltedWithBackground("[4] HOW TO PLAY",       half, height+200, 2, {255,255,255} )
+  end
 end
 
 

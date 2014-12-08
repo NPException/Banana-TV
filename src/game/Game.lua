@@ -7,7 +7,7 @@ local globals = GLOBALS
 
 function Game.new()
   local g = setmetatable({}, Game)
-  g.score = {scared=2151, bored=99999, delight=221}
+  g.score = {scared=0, bored=0, delight=0}
   g.showScore = false
   g.scene = {
     room = require("game.scene.Room").new(),
@@ -63,8 +63,14 @@ function Game:draw()
   
   local state = self.state
   
+  
   -- draw room background
-  self.scene.room:draw()
+  self.scene.room:drawRoom()
+  
+  if state.drawWall then state:drawWall() end
+  
+  -- draw couch/table
+  self.scene.room:drawFurniture()
   
   -- draw state dependent room and tv contents
   if state.drawRoom then state:drawRoom() end
