@@ -4,7 +4,7 @@
 return {
   name = "puppetshow",
   animation = love.graphics.newImage("assets/actions/puppetshow_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/puppetshow_dev.png"),
+  icon = love.graphics.newImage("assets/actions/puppetshow_icon_dev.png"),
   score = {
     baby    = { scared = 0, bored = 0, delight = 10},
     girl    = { scared = 0, bored = 8, delight = 4},

@@ -4,7 +4,7 @@
 return {
   name = "erotictv",
   animation = love.graphics.newImage("assets/actions/erotictv_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/erotictv_dev.png"),
+  icon = love.graphics.newImage("assets/actions/erotictv_icon_dev.png"),
   score = {
     baby    = { scared = 6, bored = 0, delight = 4},
     girl    = { scared = 6, bored = 2, delight = 1},

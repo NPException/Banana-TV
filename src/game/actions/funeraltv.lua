@@ -4,7 +4,7 @@
 return {
   name = "funeraltv",
   animation = love.graphics.newImage("assets/actions/funeraltv_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/funeraltv_dev.png"),
+  icon = love.graphics.newImage("assets/actions/funeraltv_icon_dev.png"),
   score = {
     baby    = { scared = 0, bored = 10, delight = 0},
     girl    = { scared = 10, bored = 0, delight = 0},

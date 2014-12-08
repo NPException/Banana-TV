@@ -4,7 +4,7 @@
 return {
   name = "punch",
   animation = love.graphics.newImage("assets/actions/punch_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/punch_dev.png"),
+  icon = love.graphics.newImage("assets/actions/punch_icon_dev.png"),
   score = {
     baby    = { scared = 6, bored = 6, delight = 0},
     girl    = { scared = 6, bored = 0, delight = 2},

@@ -4,7 +4,7 @@
 return {
   name = "swordplay",
   animation = love.graphics.newImage("assets/actions/swordplay_dev.png"),  -- Filepath
-  icon =  love.graphics.newImage("assets/actions/swordplay_dev.png"),
+  icon =  love.graphics.newImage("assets/actions/swordplay_icon_dev.png"),
   score = {
     baby    = { scared = 8, bored = 2, delight = 0},
     girl    = { scared = 0, bored = 8, delight = 2},

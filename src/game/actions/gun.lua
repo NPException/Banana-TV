@@ -4,7 +4,7 @@
 return {
   name = "gun",
   animation = love.graphics.newImage("assets/actions/gun_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/gun_dev.png"),
+  icon = love.graphics.newImage("assets/actions/gun_icon_dev.png"),
   score = {
     baby    = { scared = 12, bored = 0, delight = 0},
     girl    = { scared = 6, bored = 0, delight = 3},
