@@ -1,8 +1,8 @@
 return {
   name = "doll",
-  image = love.graphics.newImage("assets/items/doll.png"),
-  offsetX = 0,
-  offsetY = 0,
+  image = love.graphics.newImage("assets/items/doll_dev.png"),
+  offsetX = 100,
+  offsetY = 124,
   positions = {
     wall=false,
     armrests=true,
