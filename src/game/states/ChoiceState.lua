@@ -44,18 +44,30 @@ end
 local lg = love.graphics
 function Choice:drawGUI()
   
+  local mx,my = self.game:getMousePosition()
+  
+  local focusRect = nil
   
   for _,entry in ipairs(self.actions) do
     
     local action = entry.action
     local rect = entry.rect
-    
-    lg.setColor(0,0,0,200)
-    lg.rectangle("fill", rect.x, rect.y, rect.w, rect.h)
     lg.setColor(255,255,255)
     lg.draw(action.icon, rect.x, rect.y, 0,
             rect.w/action.icon:getWidth(), rect.h/action.icon:getHeight())
 
+    if (rect.x <= mx
+          and rect.x+rect.w  >=  mx
+          and rect.y <= my
+          and rect.y+rect.h >= my) then
+      focusRect = rect
+    end
+  end
+  
+  if focusRect then
+    lg.setLineWidth(7)
+    lg.setColor(238,238,0)   
+    love.graphics.circle("line", focusRect.x+focusRect.w/2, focusRect.y+focusRect.h/2, focusRect.w*0.7)
   end
 end
 
@@ -66,9 +78,9 @@ function Choice:mousepressed(x,y,button)
       local rect = entry.rect
       
       if (rect.x <= x
-      and rect.x+rect.w  >=  x
-      and rect.y <= y
-      and rect.y+rect.h >= y) then
+          and rect.x+rect.w  >=  x
+          and rect.y <= y
+          and rect.y+rect.h >= y) then
         self.game.run.action = action
         self.game.state = require("game.states.RunState").new(self.game)
         break

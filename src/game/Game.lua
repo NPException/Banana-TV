@@ -143,10 +143,22 @@ end
 
 
 
-function Game:mousepressed(x,y,button)
-  local state = self.state
+local function convertToGameCoords(x,y)
   x = x*globals.scale + globals.offX
   y = y*globals.scale + globals.offY
+  return x,y
+end
+
+
+function Game:getMousePosition()
+  local x = love.mouse.getX()
+  local y = love.mouse.getY()
+  return convertToGameCoords(x,y)
+end
+
+
+function Game:mousepressed(x,y,button)
+  local state = self.state
   if state.mousepressed then state:mousepressed(x,y,button) end
 end
 

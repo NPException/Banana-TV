@@ -35,6 +35,9 @@ local helptext = {
     At this point you will see the character(s) that will be watching your show. Depending on the choice you made in the previous\
     step, the characters might be bored, delighted or even scared by the show.
     Your scores will increased based on that.
+    
+    == THE END ==
+    The game is over once you have reached ]]..globals.config.scorelimit..[[ points in one of the categories you did not choose.
   ]]
 }
 
@@ -52,14 +55,14 @@ function Menu.new(game, highscore)
   menu.stuff = {}
   menu.changeTimer = 0
   
-  local width = lg.getFont():getWidth("Banana TV")*menu.titleScale
-  local height = lg.getFont():getHeight()*menu.titleScale
-  menu.titlecanvas = lg.newCanvas(width, height+10)
+  menu.titleWidth = lg.getFont():getWidth("Banana TV")*menu.titleScale
+  menu.titleHeight = lg.getFont():getHeight()*menu.titleScale + 10
+  menu.titlecanvas = lg.newCanvas(roundPow2(menu.titleWidth,256), roundPow2(menu.titleHeight,256))
   lg.setCanvas(menu.titlecanvas)
     lg.setColor(255,230,0)
     lg.print("Banana",0,0,0,8,8)
     lg.setColor(255,255,255)
-    love.graphics.print("Your chance to ruin multiple lifes!",2,height-26,0,2)
+    lg.print("Your chance to ruin multiple lifes!",2,menu.titleHeight-36,0,2)
   lg.setCanvas()
   
   menu.titleHue = 0
@@ -118,6 +121,30 @@ function Menu:keypressed(key)
     self.game.state = require("game.states.PreviewState").new(self.game)
     self.game.scene.tvframe:startNoise()
   end
+end
+
+
+local pickCanvas
+function Menu:mousepressed(x, y, button)
+  if self.highscore then
+    self:keypressed("space")
+    return
+  end
+  
+  lg.push()
+    if not pickCanvas then
+      pickCanvas = lg.newCanvas(roundPow2(globals.config.resX,256), roundPow2(globals.config.resY,256))
+    end
+    lg.setCanvas(pickCanvas)
+      lg.setBackgroundColor(0,0,0)
+      lg.clear()
+      self:drawGUI(true)
+    lg.setCanvas()
+  lg.pop()
+  
+  local r = pickCanvas:getPixel(x,y)
+  
+  
 end
 
 
@@ -217,7 +244,7 @@ function Menu:drawRoom()
 end
 
 
-local function printTiltedWithBackground(text, x, y, scale, color)
+local function printTiltedWithBackground(text, x, y, scale, color, pickmode)
   local width = lg.getFont():getWidth(text)+4
   local height = lg.getFont():getHeight()+4
   
@@ -225,16 +252,25 @@ local function printTiltedWithBackground(text, x, y, scale, color)
     lg.translate(x,y)
     lg.scale(scale,scale)
     lg.rotate(0.05)
-    lg.setColor(0,0,0,170)
-    lg.rectangle("fill",-width/2,-height/2,width, height)
-    lg.setColor(color)
-    lg.print(text, 2-width/2, 2-height/2)
+    if pickmode then
+      lg.setColor(color)
+      lg.rectangle("fill",-width/2,-height/2,width, height)
+    else
+      lg.setColor(0,0,0,170)
+      lg.rectangle("fill",-width/2,-height/2,width, height)
+      lg.setColor(color)
+      lg.print(text, 2-width/2, 2-height/2)
+    end
   lg.pop()
 end
 
 
 
-function Menu:drawGUI()
+function Menu:drawGUI(pickmode)
+  if pickCanvas then
+    lg.setColor(255,255,255)
+    lg.draw(pickCanvas, 0, globals.config.resY)
+  end
   if self.showHelp then
     local x = globals.config.resX/12
     local y = globals.config.resY/6
@@ -263,8 +299,8 @@ function Menu:drawGUI()
     printTiltedWithBackground("Press [4] to go back", half, y+h+offY, 2, {255,255,255} )
     
   else
-    local width = self.titlecanvas:getWidth()
-    local height = self.titlecanvas:getHeight()
+    local width = self.titleWidth
+    local height = self.titleHeight
     local half = globals.config.resX/2
     lg.setColor(255,255,255,170)
     lg.draw(self.titlecanvas, half, 160, self.titleTilt, 1, 1, width/2, height/2)
@@ -277,10 +313,10 @@ function Menu:drawGUI()
       printTiltedWithBackground("- Press any key to continue -",   half, height+300, 2,  {255,255,255}   )
     else
       height = 450
-      printTiltedWithBackground("[1] Delight people",    half, height,     3, {0,238,0}     )
-      printTiltedWithBackground("[2] Make people bored", half, height+70,  3, {238,238,0}   )
-      printTiltedWithBackground("[3] Scare people",      half, height+140, 3, {238,0,0}     )
-      printTiltedWithBackground("[4] HOW TO PLAY",       half, height+200, 2, {255,255,255} )
+      printTiltedWithBackground("[1] Delight people",    half, height,     3, {0,238,0}     ,pickmode)
+      printTiltedWithBackground("[2] Make people bored", half, height+70,  3, {238,238,0}   ,pickmode)
+      printTiltedWithBackground("[3] Scare people",      half, height+140, 3, {238,0,0}     ,pickmode)
+      printTiltedWithBackground("[4] HOW TO PLAY",       half, height+200, 2, {255,255,255} ,pickmode)
     end
   end
 end

@@ -22,7 +22,9 @@ function TVFrame.new()
     sound = love.audio.newSource("assets/sounds/static.wav", "static"),
     soundloop = love.audio.newSource("assets/sounds/staticloop.wav", "static")
   }
-  tvf.noise.canvas = lg.newCanvas(globals.config.resX/tvf.noise.scale, globals.config.resY/tvf.noise.scale)
+  tvf.noise.canvasWidth = globals.config.resX/tvf.noise.scale
+  tvf.noise.canvasHeight = globals.config.resY/tvf.noise.scale
+  tvf.noise.canvas = lg.newCanvas(roundPow2(tvf.noise.canvasWidth,256), roundPow2(tvf.noise.canvasHeight,256))
   tvf.noise.soundloop:setLooping(true)
   return tvf
 end
@@ -66,8 +68,8 @@ function TVFrame:update(dt)
       lg.setCanvas(canvas)
       lg.setPointSize(1)
       lg.setPointStyle("rough")
-      for y=0,canvas:getHeight() do
-        for x=0,canvas:getWidth(),2 do
+      for y=0,self.noise.canvasHeight do
+        for x=0,self.noise.canvasWidth,2 do
           local brightness = rand(50,255)
           lg.setColor(brightness,brightness,brightness,255)
           lg.point(0.5+x, 0.5+y)

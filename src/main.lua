@@ -8,6 +8,17 @@ local globals = GLOBALS
 
 
 
+-- function to get next largest power of two
+function roundPow2(num, start)
+  local pow = start or 1
+  while pow<num do
+    pow = pow*2
+  end
+  return pow
+end
+
+
+
 local game
 
 -- LOAD --
