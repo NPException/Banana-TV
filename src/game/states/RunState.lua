@@ -38,6 +38,9 @@ function RunState:update(dt)
       bubbleSpawn.y = bubbleSpawn.y - 100
       local entryScore = entry.char:updateMood(self.game.run.action)
       for scoreType,amount in pairs(entryScore) do
+        if scoreType == self.game.variant then
+          amount = math.floor(amount*1.5)
+        end
         for i=1,amount do
           table.insert(self.bubbles, ScoreBubble.new(bubbleSpawn, self.game.score, scoreType))
         end

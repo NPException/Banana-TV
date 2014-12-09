@@ -99,6 +99,8 @@ function Menu:keypressed(key)
     elseif key == "right" then
       self.helpPage = math.min(#helptext, self.helpPage+1)
     end
+  elseif key == "x" then
+    self.changeTimer = 0
   end
   
   if gameVariant then
