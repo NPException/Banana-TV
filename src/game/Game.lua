@@ -7,8 +7,7 @@ local globals = GLOBALS
 
 function Game.new()
   local g = setmetatable({}, Game)
-  g.score = {scared=0, bored=0, delight=0}
-  g.showScore = false
+  g:resetScore()
   g.scene = {
     room = require("game.scene.Room").new(),
     tvframe = require("game.scene.TVFrame").new()
@@ -42,6 +41,13 @@ function Game.new()
   return g
 end
 
+
+
+function Game:resetScore()
+  self.score = {scared=0, bored=0, delight=0}
+  self.showScore = false
+  self.variant = nil
+end
 
 
 

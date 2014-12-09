@@ -23,7 +23,8 @@ end
 
 local config = {
   resX = 1280,
-  resY = 720
+  resY = 720,
+  scorelimit = 150
 }
 
 return config

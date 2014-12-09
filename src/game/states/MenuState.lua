@@ -40,11 +40,10 @@ local helptext = {
 
 
 
-function Menu.new(game)
+function Menu.new(game, highscore)
   local menu = setmetatable({}, Menu)
   
-  game.showScore = false
-  game.score = {scared=0, bored=0, delight=0}
+  game:resetScore()
   
   menu.game = game
   menu.titleScale = 8
@@ -60,7 +59,7 @@ function Menu.new(game)
     lg.setColor(255,230,0)
     lg.print("Banana",0,0,0,8,8)
     lg.setColor(255,255,255)
-    love.graphics.print("Choose your goal!",2,height-26,0,2)
+    love.graphics.print("Your chance to ruin multiple lifes!",2,height-26,0,2)
   lg.setCanvas()
   
   menu.titleHue = 0
@@ -68,6 +67,10 @@ function Menu.new(game)
   
   menu.showHelp = false
   menu.helpPage = 1
+  menu.highscore = highscore
+  
+  menu.usedChars = {}
+  menu.usedItems = {}
   
   return menu
 end
@@ -84,7 +87,13 @@ end
 
 
 function Menu:keypressed(key)
+  if self.highscore then
+    self.highscore = nil
+    return
+  end
+  
   local gameVariant = nil
+  
   if key == "1" or key == "kp1" then
     gameVariant = "delight"
   elseif key == "2" or key == "kp2" then
@@ -134,7 +143,9 @@ function Menu:update(dt)
   
   if self.changeTimer < 0 then
     self.changeTimer = math.random(3,7)
-    self.game.scene.tvframe:startNoise()
+    if not self.highscore then
+      self.game.scene.tvframe:startNoise()
+    end
     
     self.usedChars = {}
     self.usedItems = {}
@@ -258,11 +269,19 @@ function Menu:drawGUI()
     lg.setColor(255,255,255,170)
     lg.draw(self.titlecanvas, half, 160, self.titleTilt, 1, 1, width/2, height/2)
     
-    height = 450
-    printTiltedWithBackground("[1] Delight people",    half, height,     3, {0,238,0}     )
-    printTiltedWithBackground("[2] Make people bored", half, height+70,  3, {238,238,0}   )
-    printTiltedWithBackground("[3] Scare people",      half, height+140, 3, {238,0,0}     )
-    printTiltedWithBackground("[4] HOW TO PLAY",       half, height+200, 2, {255,255,255} )
+    if self.highscore then
+      height = 320
+      printTiltedWithBackground("Delight: "..self.highscore.delight, half, height,     self.highscore.variant=="delight" and 4 or 3, {0,238,0}   )
+      printTiltedWithBackground("Bored: "..self.highscore.bored,     half, height+90,  self.highscore.variant=="bored" and 4 or 3,   {238,238,0} )
+      printTiltedWithBackground("Scared: "..self.highscore.scared,   half, height+180, self.highscore.variant=="scared" and 4 or 3,  {238,0,0}   )
+      printTiltedWithBackground("- Press any key to continue -",   half, height+300, 2,  {255,255,255}   )
+    else
+      height = 450
+      printTiltedWithBackground("[1] Delight people",    half, height,     3, {0,238,0}     )
+      printTiltedWithBackground("[2] Make people bored", half, height+70,  3, {238,238,0}   )
+      printTiltedWithBackground("[3] Scare people",      half, height+140, 3, {238,0,0}     )
+      printTiltedWithBackground("[4] HOW TO PLAY",       half, height+200, 2, {255,255,255} )
+    end
   end
 end
 

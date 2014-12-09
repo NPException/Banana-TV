@@ -19,6 +19,7 @@ function RunState.new(game)
 end
 
 
+
 function RunState:update(dt)
   if self.started then
     self.started = false
@@ -54,6 +55,14 @@ function RunState:update(dt)
     for _,bubble in ipairs(self.activeBubbles) do
       local done = bubble:update(dt)
       allDone = allDone and done
+      -- check if score limit is reached
+      if done and bubble.scoreType ~= self.game.variant
+              and self.game.score[bubble.scoreType] >= globals.config.scorelimit then
+        local highscore = lowCopy(self.game.score)
+        highscore.variant = self.game.variant
+        self.game.state = require("game.states.MenuState").new(self.game, highscore)
+        self.game.scene.tvframe:startNoise(true)
+      end
     end
     
     if #self.bubbles > 0 then
@@ -65,11 +74,11 @@ function RunState:update(dt)
         table.remove(self.bubbles, index)
       end
     elseif allDone then
-      local startNextRound = function()
+      local switchState = function()
         self.game.state = require("game.states.PreviewState").new(self.game)
         self.game.scene.tvframe:startNoise()
       end
-      self.game.timer:start(startNextRound, 3)
+      self.game.timer:start(switchState, 3)
       self.nextstep = nil
     end
   end
