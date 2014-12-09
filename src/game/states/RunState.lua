@@ -24,6 +24,10 @@ function RunState:update(dt)
   if self.started then
     self.started = false
     self.game.scene.tvframe:stopNoise()
+    -- reset everyones mood
+    for _,entry in ipairs(self.game.run.characters) do
+      entry.char.mood = "bored"
+    end
   end
   
   self.time = self.time + dt
