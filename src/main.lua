@@ -29,7 +29,7 @@ function love.load(arg)
   love.graphics.setFont(font)
   
   -- init cursor
-  cursor = love.mouse.newCursor("assets/mouse/cursor.png",0,0)
+  cursor = love.mouse.newCursor("assets/mouse/cursor_banana.png",0,0)
   love.mouse.setCursor(cursor)
   
   globals.time = 0
