@@ -2,7 +2,7 @@ local RunState = {}
 RunState.__index = RunState
 
 local globals = GLOBALS
-
+local tween = require("lib.tween")
 
 
 function RunState.new(game)
@@ -11,6 +11,8 @@ function RunState.new(game)
   
   state.nextstep = "updateCharacters"
   state.started = true
+  state.bubbles = {}
+  state.activeBubbles = {}
   
   state.time = 0
   return state
@@ -29,11 +31,44 @@ function RunState:update(dt)
     entry.char:update(dt)
   end
   
-  if self.time > 1 and self.nextstep == "updateCharacters" then
+  if self.nextstep == "updateCharacters" and self.time > 1 then
+    local ScoreBubble = require("game.states.ScoreBubble")
     for _,entry in ipairs(self.game.run.characters) do
-      entry.scores = entry.char:updateMood(self.game.run.action)
+      local bubbleSpawn = lowCopy(entry.spot)
+      bubbleSpawn.y = bubbleSpawn.y - 100
+      local entryScore = entry.char:updateMood(self.game.run.action)
+      for scoreType,amount in pairs(entryScore) do
+        for i=1,amount do
+          table.insert(self.bubbles, ScoreBubble.new(bubbleSpawn, self.game.score, scoreType))
+        end
+      end
     end
     self.nextstep = "doScoring"
+  end
+  
+  if self.nextstep == "doScoring" then
+    local allDone = true
+    for _,bubble in ipairs(self.activeBubbles) do
+      local done = bubble:update(dt)
+      allDone = allDone and done
+    end
+    
+    if #self.bubbles > 0 then
+      if self.time > 0.2 then
+        self.time = 0
+        local index = math.random(1,#self.bubbles)
+        self.bubbles[index]:start()
+        table.insert(self.activeBubbles, self.bubbles[index])
+        table.remove(self.bubbles, index)
+      end
+    elseif allDone then
+      local startNextRound = function()
+        self.game.state = require("game.states.PreviewState").new(self.game)
+        self.game.scene.tvframe:startNoise()
+      end
+      self.game.timer:start(startNextRound, 3)
+      self.nextstep = nil
+    end
   end
 end
 
@@ -75,6 +110,9 @@ end
 
 -- OPTIONAL -- draws GUI elements of this state. is drawn on top of the tv-frame
 function RunState:drawGUI()
+  for _,bubble in ipairs(self.activeBubbles) do
+    bubble:draw()
+  end
 end
 
 
