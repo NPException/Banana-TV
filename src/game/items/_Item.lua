@@ -10,6 +10,7 @@ function Item.new(id, itemTable)
   item.id = id
   item.name = itemTable.name
   item.image = itemTable.image
+  item.scale = itemTable.scale or 1
   item.offsetX = itemTable.offsetX
   item.offsetY = itemTable.offsetY
   item.positions = itemTable.positions
@@ -21,7 +22,7 @@ end
 local lg = love.graphics
 function Item:draw(pos)
   lg.setColor(255,255,255)
-  lg.draw(self.image, pos.x-self.offsetX, pos.y-self.offsetY)
+  lg.draw(self.image, pos.x, pos.y, 0, self.scale, self.scale, self.offsetX, self.offsetY)
 end
 
 return Item
