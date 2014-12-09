@@ -1,8 +1,8 @@
 return {
   name = "fake teeth",
-  image = love.graphics.newImage("assets/items/faketeeth_dev.png"),
-  offsetX = 102,
-  offsetY = 34,
+  image = love.graphics.newImage("assets/items/faketeeth.png"),
+  offsetX = 47,
+  offsetY = 73,
   positions = {
     wall=false,
     armrest=true,

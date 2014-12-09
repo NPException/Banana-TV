@@ -1,8 +1,8 @@
 return {
   name = "tissue box",
-  image = love.graphics.newImage("assets/items/tissuebox_dev.png"),
-  offsetX = 102,
-  offsetY = 34,
+  image = love.graphics.newImage("assets/items/tissuebox.png"),
+  offsetX = 65,
+  offsetY = 59,
   positions = {
     wall=false,
     armrest=true,

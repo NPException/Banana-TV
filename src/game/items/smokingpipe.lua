@@ -1,8 +1,8 @@
 return {
   name = "pipe",
-  image = love.graphics.newImage("assets/items/smokingpipe_dev.png"),
-  offsetX = 102,
-  offsetY = 34,
+  image = love.graphics.newImage("assets/items/smokingpipe.png"),
+  offsetX = 45,
+  offsetY = 71,
   positions = {
     wall=false,
     armrest=true,

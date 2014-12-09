@@ -1,8 +1,8 @@
 return {
   name = "blanket",
-  image = love.graphics.newImage("assets/items/blanket_dev.png"),
-  offsetX = 102,
-  offsetY = 34,
+  image = love.graphics.newImage("assets/items/blanket.png"),
+  offsetX = 89,
+  offsetY = 97,
   positions = {
     wall=false,
     armrest=false,

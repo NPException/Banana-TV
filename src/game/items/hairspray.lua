@@ -1,8 +1,8 @@
 return {
   name = "hairspray",
-  image = love.graphics.newImage("assets/items/hairspray_dev.png"),
-  offsetX = 102,
-  offsetY = 34,
+  image = love.graphics.newImage("assets/items/hairspray.png"),
+  offsetX = 77,
+  offsetY = 301,
   positions = {
     wall=false,
     armrest=true,

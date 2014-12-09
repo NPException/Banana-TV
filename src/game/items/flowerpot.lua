@@ -1,8 +1,8 @@
 return {
   name = "flowerpot",
-  image = love.graphics.newImage("assets/items/flowerpot_dev.png"),
-  offsetX = 102,
-  offsetY = 34,
+  image = love.graphics.newImage("assets/items/flowerpot.png"),
+  offsetX = 49,
+  offsetY = 118,
   positions = {
     wall=false,
     armrest=false,

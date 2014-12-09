@@ -1,8 +1,8 @@
 return {
   name = "diaper",
-  image = love.graphics.newImage("assets/items/diaper_dev.png"),
-  offsetX = 102,
-  offsetY = 34,
+  image = love.graphics.newImage("assets/items/diaper.png"),
+  offsetX = 87,
+  offsetY = 103,
   positions = {
     wall=false,
     armrest=true,
