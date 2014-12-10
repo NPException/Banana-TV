@@ -55,16 +55,6 @@ function Menu.new(game, highscore)
   menu.stuff = {}
   menu.changeTimer = 0
   
-  menu.titleWidth = lg.getFont():getWidth("Banana TV")*menu.titleScale
-  menu.titleHeight = lg.getFont():getHeight()*menu.titleScale + 10
-  menu.titlecanvas = lg.newCanvas(roundPow2(menu.titleWidth,256), roundPow2(menu.titleHeight,256))
-  lg.setCanvas(menu.titlecanvas)
-    lg.setColor(255,230,0)
-    lg.print("Banana",0,0,0,8,8)
-    lg.setColor(255,255,255)
-    lg.print("Your chance to ruin multiple lifes!",2,menu.titleHeight-36,0,2)
-  lg.setCanvas()
-  
   menu.titleHue = 0
   menu.titleHueTween = tween.new(1, menu, {titleHue=255}, "linear")
   
@@ -133,7 +123,7 @@ function Menu:mousepressed(x, y, button)
   
   lg.push()
     if not pickCanvas then
-      pickCanvas = lg.newCanvas(roundPow2(globals.config.resX,256), roundPow2(globals.config.resY,256))
+      pickCanvas = lg.newCanvas(globals.config.resX, globals.config.resY)
     end
     lg.setCanvas(pickCanvas)
       lg.setBackgroundColor(0,0,0)
@@ -141,7 +131,7 @@ function Menu:mousepressed(x, y, button)
       self:drawGUI(true)
     lg.setCanvas()
   lg.pop()
-  
+
   local r = pickCanvas:getPixel(x,y)
   
   
@@ -159,12 +149,6 @@ function Menu:update(dt)
   if titleHueTweenComplete then
     self.titleHueTween:reset()
   end
-  
-  lg.setCanvas(self.titlecanvas)
-    local width = lg.getFont():getWidth("Banana ")
-    lg.setColor(hsvtorgb(self.titleHue,255,255))
-    lg.print("TV",width*self.titleScale, 0, 0, self.titleScale)
-  lg.setCanvas()
   
   self.changeTimer = self.changeTimer - dt
   
@@ -244,6 +228,32 @@ function Menu:drawRoom()
 end
 
 
+
+function Menu:printTitle()
+  lg.push()
+    lg.translate(globals.config.resX/2,160)
+    lg.rotate(self.titleTilt)
+    lg.scale(self.titleScale)
+    
+    local width = lg.getFont():getWidth("Banana TV")
+    local height = lg.getFont():getHeight()
+    local half = globals.config.resX/2
+    local alpha = 170
+    lg.setColor(255,230,0,alpha)
+    lg.print("Banana",0,0,0,1,1,width/2,height/2)
+    
+    local partwidth = lg.getFont():getWidth("Banana ")
+    local r,g,b = hsvtorgb(self.titleHue,255,255)
+    lg.setColor(r,g,b,alpha)
+    lg.print("TV",partwidth, 0, 0, 1, 1, width/2, height/2)
+    
+    lg.setColor(255,255,255,alpha)
+    lg.print("Your chance to ruin multiple lifes!", 0,0, 0, 0.25,0.25, width*2, -height*1.5)
+  lg.pop()
+end
+
+
+
 local function printTiltedWithBackground(text, x, y, scale, color, pickmode)
   local width = lg.getFont():getWidth(text)+4
   local height = lg.getFont():getHeight()+4
@@ -299,20 +309,17 @@ function Menu:drawGUI(pickmode)
     printTiltedWithBackground("Press [4] to go back", half, y+h+offY, 2, {255,255,255} )
     
   else
-    local width = self.titleWidth
-    local height = self.titleHeight
     local half = globals.config.resX/2
-    lg.setColor(255,255,255,170)
-    lg.draw(self.titlecanvas, half, 160, self.titleTilt, 1, 1, width/2, height/2)
+    self:printTitle()
     
     if self.highscore then
-      height = 320
+      local height = 320
       printTiltedWithBackground("Delight: "..self.highscore.delight, half, height,     self.highscore.variant=="delight" and 4 or 3, {0,238,0}   )
       printTiltedWithBackground("Bored: "..self.highscore.bored,     half, height+90,  self.highscore.variant=="bored" and 4 or 3,   {238,238,0} )
       printTiltedWithBackground("Scared: "..self.highscore.scared,   half, height+180, self.highscore.variant=="scared" and 4 or 3,  {238,0,0}   )
       printTiltedWithBackground("- Press any key to continue -",   half, height+300, 2,  {255,255,255}   )
     else
-      height = 450
+      local height = 450
       printTiltedWithBackground("[1] Delight people",    half, height,     3, {0,238,0}     ,pickmode)
       printTiltedWithBackground("[2] Make people bored", half, height+70,  3, {238,238,0}   ,pickmode)
       printTiltedWithBackground("[3] Scare people",      half, height+140, 3, {238,0,0}     ,pickmode)

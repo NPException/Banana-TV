@@ -24,7 +24,7 @@ function TVFrame.new()
   }
   tvf.noise.canvasWidth = globals.config.resX/tvf.noise.scale
   tvf.noise.canvasHeight = globals.config.resY/tvf.noise.scale
-  tvf.noise.canvas = lg.newCanvas(roundPow2(tvf.noise.canvasWidth,256), roundPow2(tvf.noise.canvasHeight,256))
+  tvf.noise.canvas = lg.newCanvas(tvf.noise.canvasWidth, tvf.noise.canvasHeight)
   tvf.noise.soundloop:setLooping(true)
   return tvf
 end
