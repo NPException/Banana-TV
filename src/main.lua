@@ -33,6 +33,14 @@ function love.load(arg)
   
   globals.time = 0
   
+  -- check render
+  globals.render = {}
+  globals.render.name, globals.render.version, globals.render.vendor, globals.render.device = love.graphics.getRendererInfo( )
+  
+  if tonumber(string.sub(globals.render.version, 1,3)) >= 2.1 then
+    love.window.setMode( globals.config.resX, globals.config.resY, {fsaa=16} )
+  end
+  
   game = require("game.Game").new()
 end
 
