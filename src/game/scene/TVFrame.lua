@@ -22,10 +22,11 @@ function TVFrame.new()
     sound = love.audio.newSource("assets/sounds/static.wav", "static"),
     soundloop = love.audio.newSource("assets/sounds/staticloop.wav", "static")
   }
-  tvf.noise.canvasWidth = globals.config.resX/tvf.noise.scale
-  tvf.noise.canvasHeight = globals.config.resY/tvf.noise.scale
-  tvf.noise.canvas = lg.newCanvas(tvf.noise.canvasWidth, tvf.noise.canvasHeight)
+  local nw = globals.config.resX/tvf.noise.scale
+  local nh = globals.config.resY/tvf.noise.scale
+  tvf.noise.img = lg.newImage(love.image.newImageData(nw, nh))
   tvf.noise.soundloop:setLooping(true)
+  tvf:refreshNoise()
   return tvf
 end
 
@@ -42,6 +43,22 @@ end
 
 function TVFrame:stopNoise()
   self.noise.loop = false
+end
+
+function TVFrame:refreshNoise()
+  local rand = math.random
+  local noisedata = self.noise.img:getData()
+  local maxX, maxY = self.noise.img:getWidth()-1, self.noise.img:getHeight()-1
+  for y=0,maxY do
+    for x=0,maxX,2 do
+      local brightness = rand(50,255)
+      noisedata:setPixel(x,y,brightness,brightness,brightness)
+      if x < maxX then
+        noisedata:setPixel(x+1,y,brightness,brightness,brightness)
+      end
+    end
+  end
+  self.noise.img:refresh()
 end
 
 
@@ -63,20 +80,7 @@ function TVFrame:update(dt)
       self.noise.tick = self.noise.tick - dt*20
     else
       self.noise.tick = 1
-      local canvas = self.noise.canvas
-      local rand = math.random
-      lg.setCanvas(canvas)
-      lg.setPointSize(1)
-      lg.setPointStyle("rough")
-      for y=0,self.noise.canvasHeight do
-        for x=0,self.noise.canvasWidth,2 do
-          local brightness = rand(50,255)
-          lg.setColor(brightness,brightness,brightness,255)
-          lg.point(0.5+x, 0.5+y)
-          lg.point(1.5+x, 0.5+y)
-        end
-      end
-      lg.setCanvas()
+      self:refreshNoise()
     end
     
     if not self.noise.loop then
@@ -109,7 +113,7 @@ function TVFrame:draw()
   
   if self.noise.alpha > 0 then
     lg.setColor(255,255,255,self.noise.alpha)
-    lg.draw(self.noise.canvas,0,0,0,self.noise.scale,self.noise.scale)
+    lg.draw(self.noise.img,0,0,0,self.noise.scale,self.noise.scale)
   end
   
   -- draw tv frame image

@@ -121,18 +121,18 @@ function Menu:mousepressed(x, y, button)
     return
   end
   
-  lg.push()
-    if not pickCanvas then
-      pickCanvas = lg.newCanvas(globals.config.resX, globals.config.resY)
-    end
-    lg.setCanvas(pickCanvas)
-      lg.setBackgroundColor(0,0,0)
-      lg.clear()
-      self:drawGUI(true)
-    lg.setCanvas()
-  lg.pop()
+--  lg.push()
+--    if not pickCanvas then
+--      pickCanvas = lg.newCanvas(globals.config.resX, globals.config.resY)
+--    end
+--    lg.setCanvas(pickCanvas)
+--      lg.setBackgroundColor(0,0,0)
+--      lg.clear()
+--      self:drawGUI(true)
+--    lg.setCanvas()
+--  lg.pop()
 
-  local r = pickCanvas:getPixel(x,y)
+--  local r = pickCanvas:getPixel(x,y)
   
   
 end
