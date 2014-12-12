@@ -10,6 +10,9 @@ function Choice.new(game)
   choice.started = true
   
   choice.actions = {}
+  if not choice.lastactions then
+    choice.lastactions = {}
+  end
   
   local size = 128
   
@@ -52,14 +55,23 @@ function Choice:drawGUI()
     
     local action = entry.action
     local rect = entry.rect
+    local isLastUsed = false
     lg.setColor(255,255,255)
     lg.draw(action.icon, rect.x, rect.y, 0,
             rect.w/action.icon:getWidth(), rect.h/action.icon:getHeight())
-
+    
+    for _,last in ipairs(self.lastactions) do
+      print(last)
+      if last == action.name then
+        isLastUsed = true
+      end
+    end
+    
     if (rect.x <= mx
           and rect.x+rect.w  >=  mx
           and rect.y <= my
-          and rect.y+rect.h >= my) then
+          and rect.y+rect.h >= my
+          and isLastUsed == false) then
       focusRect = rect
     end
   end
@@ -81,6 +93,7 @@ function Choice:mousepressed(x,y,button)
           and rect.x+rect.w  >=  x
           and rect.y <= y
           and rect.y+rect.h >= y) then
+        table.insert(self.lastactions, action.name)
         self.game.run.action = action
         self.game.state = require("game.states.RunState").new(self.game)
         break
