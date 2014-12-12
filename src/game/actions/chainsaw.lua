@@ -2,9 +2,9 @@
 -- Action: Chainsaw
 -- --------------------------
 return {
-  name = "chainsaw",
+  name = "Chainsaw Joe",
   animation = love.graphics.newImage("assets/actions/chainsaw_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/chainsaw_icon_dev.png"),
+  icon = love.graphics.newImage("assets/actions/chainsaw_icon.png"),
   score = {
     baby    = { scared = 12, bored = 0, delight = 0},
     girl    = { scared = 8, bored = 0, delight = 1},

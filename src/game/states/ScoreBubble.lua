@@ -23,16 +23,21 @@ function Bubble.new(startPosition, adjustableScores, scoreType)
   bubble.scores = adjustableScores
   bubble.x = startPosition.x
   bubble.y = startPosition.y
-  bubble.tilt = math.random()*math.pi*2
+  bubble.tilt = 0--math.random()*math.pi*2
   bubble.alpha = 255
   
-  local duration = math.random()*0.5+0.7
+  local duration = math.random()*0.5+0.8
+  
+  local ease = {
+    "inQuad", "outQuad", "inOutQuad", "outInQuad",
+    "inBack", "outBack", "inOutBack", "outInBack"
+  }
   
   bubble.tweens = {
-    tween.new(duration, bubble, {x=globals.config.resX-175}, "inQuad" ),
-    tween.new(duration, bubble, {y=77}, "outBack"),
-    tween.new(duration, bubble, {tilt=bubble.tilt+math.pi*2},"linear"),
-    tween.new(duration, bubble, {alpha=0}, "outQuad")
+    tween.new(duration, bubble, {x=globals.config.resX-175}, ease[math.random(1,#ease)]),--"inQuad" ),
+    tween.new(duration, bubble, {y=77}, ease[math.random(1,#ease)]),--"outBack"),
+    --tween.new(duration, bubble, {tilt=bubble.tilt+math.pi*2},"linear"),
+    tween.new(duration, bubble, {alpha=0}, "inCubic")
   }
   
   return bubble
@@ -47,6 +52,7 @@ function Bubble:start()
   else
     sound:play()
   end
+  sound:setPitch(0.92 + math.random()*0.16)
 end
 
 

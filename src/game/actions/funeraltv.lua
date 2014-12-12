@@ -2,9 +2,9 @@
 -- Action: Funeral TV
 -- --------------------------
 return {
-  name = "funeraltv",
+  name = "Sad Funerals TV",
   animation = love.graphics.newImage("assets/actions/funeraltv_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/funeraltv_icon_dev.png"),
+  icon = love.graphics.newImage("assets/actions/funeraltv_icon.png"),
   score = {
     baby    = { scared = 0, bored = 10, delight = 0},
     girl    = { scared = 10, bored = 0, delight = 0},

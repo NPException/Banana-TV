@@ -9,23 +9,19 @@ function Choice.new(game)
   choice.game = game
   choice.started = true
   
-  choice.actions = {}
-  
-  local size = 128
-  
   local partX = globals.config.resX/7
   local partY = globals.config.resY/4
-  local imgX = partX - size/2
-  local imgY = partY - size/2
+  local posX = partX
+  local posY = partY
   
   for _, action in ipairs(choice.game.actions) do
     
-    table.insert(choice.actions,{ action=action, rect={x=imgX,y=imgY,w=size,h=size}})
+    action.iconPos = {x=posX,y=posY}
     
-    imgX = imgX+partX
-    if  imgX > globals.config.resX - partX then
-      imgX = partX - size/2
-      imgY = imgY + partY
+    posX = posX+partX
+    if  posX > globals.config.resX - partX then
+      posX = partX
+      posY = posY + partY
     end
   end
   
@@ -46,41 +42,24 @@ function Choice:drawGUI()
   
   local mx,my = self.game:getMousePosition()
   
-  local focusRect = nil
+  local focusedAction = nil
   
-  for _,entry in ipairs(self.actions) do
-    
-    local action = entry.action
-    local rect = entry.rect
-    lg.setColor(255,255,255)
-    lg.draw(action.icon, rect.x, rect.y, 0,
-            rect.w/action.icon:getWidth(), rect.h/action.icon:getHeight())
-
-    if (rect.x <= mx
-          and rect.x+rect.w  >=  mx
-          and rect.y <= my
-          and rect.y+rect.h >= my) then
-      focusRect = rect
+  for _,action in ipairs(self.game.actions) do
+    if action:isMouseOver(mx, my) then
+      focusedAction = action
     end
+    action:drawIcon()
   end
   
-  if focusRect then
-    lg.setLineWidth(7)
-    lg.setColor(238,238,0)   
-    love.graphics.circle("line", focusRect.x+focusRect.w/2, focusRect.y+focusRect.h/2, focusRect.w*0.7)
+  if focusedAction then
+    focusedAction:drawIconFocus()
   end
 end
 
 function Choice:mousepressed(x,y,button)
   if button == "l" then
-    for _,entry in ipairs(self.actions) do
-      local action = entry.action
-      local rect = entry.rect
-      
-      if (rect.x <= x
-          and rect.x+rect.w  >=  x
-          and rect.y <= y
-          and rect.y+rect.h >= y) then
+    for _,action in ipairs(self.game.actions) do
+      if action:isMouseOver(x,y) then
         self.game.run.action = action
         self.game.state = require("game.states.RunState").new(self.game)
         break

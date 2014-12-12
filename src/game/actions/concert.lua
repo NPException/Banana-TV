@@ -2,9 +2,9 @@
 -- Action: Concert
 -- --------------------------
 return {
-  name = "concert",
+  name = "The Generics Live",
   animation = love.graphics.newImage("assets/actions/concert_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/concert_icon_dev.png"),
+  icon = love.graphics.newImage("assets/actions/concert_icon.png"),
   score = {
     baby    = { scared = 4, bored = 5, delight = 2},
     girl    = { scared = 0, bored = 0, delight = 12},

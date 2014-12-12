@@ -26,11 +26,13 @@ function RunState:update(dt)
     self.game.scene.tvframe:stopNoise()
     -- reset everyones mood
     for _,entry in ipairs(self.game.run.characters) do
-      entry.char.mood = "bored"
+      entry.char:resetMood()
     end
   end
   
   self.time = self.time + dt
+  
+  self.game.run.action:update(dt)
   
   for _,entry in ipairs(self.game.run.characters) do
     entry.char:update(dt)
@@ -44,7 +46,7 @@ function RunState:update(dt)
       local entryScore = entry.char:updateMood(self.game.run.action)
       for scoreType,amount in pairs(entryScore) do
         if scoreType == self.game.variant then
-          amount = math.floor(amount*1.5)
+          amount = math.floor(amount*1.3)
         end
         for i=1,amount do
           table.insert(self.bubbles, ScoreBubble.new(bubbleSpawn, self.game.score, scoreType))
@@ -70,7 +72,7 @@ function RunState:update(dt)
     end
     
     if #self.bubbles > 0 then
-      if self.time > 0.2 then
+      if self.time > 0.18 then
         self.time = 0
         local index = math.random(1,#self.bubbles)
         self.bubbles[index]:start()
@@ -118,9 +120,7 @@ end
 
 local lg = love.graphics
 function RunState:drawTV()
-  local  actionImage = self.game.run.action.animation
-  lg.setColor(255,255,255,150)
-  lg.draw(actionImage, 0, 0, 0, globals.config.resX/actionImage:getWidth(), globals.config.resY/actionImage:getHeight())
+  self.game.run.action:draw()
 end
 
 

@@ -2,9 +2,9 @@
 -- Action: Cookshow
 -- --------------------------
 return {
-  name = "cookshow",
+  name = "Burnt Toast TV",
   animation = love.graphics.newImage("assets/actions/cookshow_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/cookshow_icon_dev.png"),
+  icon = love.graphics.newImage("assets/actions/cookshow_icon.png"),
   score = {
     baby    = { scared = 0, bored = 8, delight = 2},
     girl    = { scared = 0, bored = 2, delight = 4},

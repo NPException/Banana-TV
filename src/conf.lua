@@ -5,12 +5,12 @@ function love.conf(t)
   t.window.width = 1280              -- The window width (number)
   t.window.height = 720              -- The window height (number)
   t.window.borderless = false        -- Remove all border visuals from the window (boolean)
-  t.window.resizable = true         -- Let the window be user-resizable (boolean)
+  t.window.resizable = true          -- Let the window be user-resizable (boolean)
   t.window.minwidth = 320            -- Minimum window width if the window is resizable (number)
   t.window.minheight = 180           -- Minimum window height if the window is resizable (number)
   t.window.vsync = false             -- Enable vertical sync (boolean)
   
-  t.window.fsaa = 0                 -- The number of samples to use with multi-sampled antialiasing (number)
+  t.window.fsaa = 0                  -- The number of samples to use with multi-sampled antialiasing (number)
   t.window.display = 1               -- Index of the monitor to show the window in (number)
     
   t.modules.joystick = false         -- Enable the joystick module (boolean)
@@ -24,7 +24,7 @@ end
 local config = {
   resX = 1280,
   resY = 720,
-  scorelimit = 150
+  scorelimit = 50
 }
 
 return config

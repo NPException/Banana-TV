@@ -2,9 +2,9 @@
 -- Action: Fungun
 -- --------------------------
 return {
-  name = "fungun",
+  name = "Fake Gun Fun",
   animation = love.graphics.newImage("assets/actions/fungun_dev.png"),  -- Filepath
-  icon =  love.graphics.newImage("assets/actions/fungun_icon_dev.png"),
+  icon =  love.graphics.newImage("assets/actions/fungun_icon.png"),
   score = {
     baby    = { scared = 1, bored = 2, delight = 5},
     girl    = { scared = 0, bored = 8, delight = 0},

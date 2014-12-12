@@ -2,9 +2,9 @@
 -- Action: Romance
 -- --------------------------
 return {
-  name = "romance",
+  name = "Kiss Of A Rose",
   animation = love.graphics.newImage("assets/actions/romance_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/romance_icon_dev.png"),
+  icon = love.graphics.newImage("assets/actions/romance_icon.png"),
   score = {
     baby    = { scared = 0, bored = 2, delight = 6},
     girl    = { scared = 0, bored = 0, delight = 10},

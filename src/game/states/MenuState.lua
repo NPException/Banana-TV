@@ -5,6 +5,7 @@ local globals = GLOBALS
 local tween = require("lib.tween")
 local lg = love.graphics
 local hsvtorgb = HSVtoRGB
+local gfx = require("lib.graphics")
 
 local moods = {
   "bored", "scared", "delight"
@@ -254,28 +255,6 @@ end
 
 
 
-local function printTiltedWithBackground(text, x, y, scale, color, pickmode)
-  local width = lg.getFont():getWidth(text)+4
-  local height = lg.getFont():getHeight()+4
-  
-  lg.push()
-    lg.translate(x,y)
-    lg.scale(scale,scale)
-    lg.rotate(0.05)
-    if pickmode then
-      lg.setColor(color)
-      lg.rectangle("fill",-width/2,-height/2,width, height)
-    else
-      lg.setColor(0,0,0,170)
-      lg.rectangle("fill",-width/2,-height/2,width, height)
-      lg.setColor(color)
-      lg.print(text, 2-width/2, 2-height/2)
-    end
-  lg.pop()
-end
-
-
-
 function Menu:drawGUI(pickmode)
   if pickCanvas then
     lg.setColor(255,255,255)
@@ -306,7 +285,7 @@ function Menu:drawGUI(pickmode)
     
     local half = globals.config.resX/2
     lg.setColor(255,255,255)
-    printTiltedWithBackground("Press [4] to go back", half, y+h+offY, 2, {255,255,255} )
+    gfx.printTiltedWithBackground("Press [4] to go back", half, y+h+offY, 2, {255,255,255} )
     
   else
     local half = globals.config.resX/2
@@ -314,16 +293,16 @@ function Menu:drawGUI(pickmode)
     
     if self.highscore then
       local height = 320
-      printTiltedWithBackground("Delight: "..self.highscore.delight, half, height,     self.highscore.variant=="delight" and 4 or 3, {0,238,0}   )
-      printTiltedWithBackground("Bored: "..self.highscore.bored,     half, height+90,  self.highscore.variant=="bored" and 4 or 3,   {238,238,0} )
-      printTiltedWithBackground("Scared: "..self.highscore.scared,   half, height+180, self.highscore.variant=="scared" and 4 or 3,  {238,0,0}   )
-      printTiltedWithBackground("- Press any key to continue -",   half, height+300, 2,  {255,255,255}   )
+      gfx.printTiltedWithBackground("Delight: "..self.highscore.delight, half, height,     self.highscore.variant=="delight" and 4 or 3, {0,238,0},     0.05)
+      gfx.printTiltedWithBackground("Bored: "..self.highscore.bored,     half, height+90,  self.highscore.variant=="bored" and 4 or 3,   {238,238,0},   0.05)
+      gfx.printTiltedWithBackground("Scared: "..self.highscore.scared,   half, height+180, self.highscore.variant=="scared" and 4 or 3,  {238,0,0},     0.05)
+      gfx.printTiltedWithBackground("- Press any key to continue -",     half, height+300, 2,                                            {255,255,255}, 0.05)
     else
       local height = 450
-      printTiltedWithBackground("[1] Delight people",    half, height,     3, {0,238,0}     ,pickmode)
-      printTiltedWithBackground("[2] Make people bored", half, height+70,  3, {238,238,0}   ,pickmode)
-      printTiltedWithBackground("[3] Scare people",      half, height+140, 3, {238,0,0}     ,pickmode)
-      printTiltedWithBackground("[4] HOW TO PLAY",       half, height+200, 2, {255,255,255} ,pickmode)
+      gfx.printTiltedWithBackground("[1] Delight people",    half, height,     3, {0,238,0}     ,0.05, pickmode)
+      gfx.printTiltedWithBackground("[2] Make people bored", half, height+70,  3, {238,238,0}   ,0.05, pickmode)
+      gfx.printTiltedWithBackground("[3] Scare people",      half, height+140, 3, {238,0,0}     ,0.05, pickmode)
+      gfx.printTiltedWithBackground("[4] HOW TO PLAY",       half, height+200, 2, {255,255,255} ,0.05, pickmode)
     end
   end
 end

@@ -2,9 +2,9 @@
 -- Action: Castingshow
 -- --------------------------
 return {
-  name = "castingshow",
+  name = "Bananian Idol",
   animation = love.graphics.newImage("assets/actions/castingshow_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/castingshow_icon_dev.png"),
+  icon = love.graphics.newImage("assets/actions/castingshow_icon.png"),
   score = {
     baby    = { scared = 6, bored = 2, delight = 0},
     girl    = { scared = 0, bored = 0, delight = 10},
