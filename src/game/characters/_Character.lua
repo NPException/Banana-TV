@@ -17,10 +17,16 @@ function Character.new(id, charTable)
     bored   = { charTable.images.bored[1],   charTable.images.bored[2],   charTable.images.bored[3]   },
     delight = { charTable.images.delight[1], charTable.images.delight[2], charTable.images.delight[3] }
   }
-  char.tilt = 0
-  char.stretch = 1
-  char.mood = "bored"
+  char:resetMood()
   return char
+end
+
+
+
+function Character:resetMood()
+  self.tilt = 0
+  self.stretch = 1
+  self.mood = "bored"
 end
 
 
