@@ -1,10 +1,34 @@
 -- --------------------------
 -- Action: Funeral TV
 -- --------------------------
+local tween = require("lib.tween")
+
+local aniImg = love.graphics.newImage("assets/actions/funeraltv/ani.png")
+
+local function resetAnimation()
+  -- TODO
+end
+
+
+local function updateAnimation(dt)
+  -- TODO
+end
+
+
+local lg = love.graphics
+local function drawAnimation()
+  lg.draw(aniImg, 0, 0)
+end
+
+
 return {
   name = "Sad Funerals TV",
-  animation = love.graphics.newImage("assets/actions/funeraltv_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/funeraltv_icon.png"),
+  animation = {
+    reset  = resetAnimation,
+    update = updateAnimation,
+    draw   = drawAnimation
+  },
+  icon = love.graphics.newImage("assets/actions/funeraltv/icon.png"),
   score = {
     baby    = { scared = 0, bored = 10, delight = 0},
     girl    = { scared = 10, bored = 0, delight = 0},

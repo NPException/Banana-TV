@@ -1,10 +1,34 @@
 -- --------------------------
 -- Action: Concert
 -- --------------------------
+local tween = require("lib.tween")
+
+local aniImg = love.graphics.newImage("assets/actions/concert/ani.png")
+
+local function resetAnimation()
+  -- TODO
+end
+
+
+local function updateAnimation(dt)
+  -- TODO
+end
+
+
+local lg = love.graphics
+local function drawAnimation()
+  lg.draw(aniImg, 0, 0)
+end
+
+
 return {
   name = "The Generics Live",
-  animation = love.graphics.newImage("assets/actions/concert_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/concert_icon.png"),
+  animation = {
+    reset  = resetAnimation,
+    update = updateAnimation,
+    draw   = drawAnimation
+  },
+  icon = love.graphics.newImage("assets/actions/concert/icon.png"),
   score = {
     baby    = { scared = 4, bored = 5, delight = 2},
     girl    = { scared = 0, bored = 0, delight = 12},

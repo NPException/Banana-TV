@@ -1,10 +1,34 @@
 -- --------------------------
 -- Action: Cookshow
 -- --------------------------
+local tween = require("lib.tween")
+
+local aniImg = love.graphics.newImage("assets/actions/cookshow/ani.png")
+
+local function resetAnimation()
+  -- TODO
+end
+
+
+local function updateAnimation(dt)
+  -- TODO
+end
+
+
+local lg = love.graphics
+local function drawAnimation()
+  lg.draw(aniImg, 0, 0)
+end
+
+
 return {
   name = "Burnt Toast TV",
-  animation = love.graphics.newImage("assets/actions/cookshow_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/cookshow_icon.png"),
+  animation = {
+    reset  = resetAnimation,
+    update = updateAnimation,
+    draw   = drawAnimation
+  },
+  icon = love.graphics.newImage("assets/actions/cookshow/icon.png"),
   score = {
     baby    = { scared = 0, bored = 8, delight = 2},
     girl    = { scared = 0, bored = 2, delight = 4},

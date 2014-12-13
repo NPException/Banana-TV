@@ -1,10 +1,34 @@
 -- --------------------------
 -- Action: Football
 -- --------------------------
+local tween = require("lib.tween")
+
+local aniImg = love.graphics.newImage("assets/actions/football/ani.png")
+
+local function resetAnimation()
+  -- TODO
+end
+
+
+local function updateAnimation(dt)
+  -- TODO
+end
+
+
+local lg = love.graphics
+local function drawAnimation()
+  lg.draw(aniImg, 0, 0)
+end
+
+
 return {
   name = "Not Hand-Egg",
-  animation = love.graphics.newImage("assets/actions/football_dev.png"),  -- Filepath
-  icon =  love.graphics.newImage("assets/actions/football_icon.png"),
+  animation = {
+    reset  = resetAnimation,
+    update = updateAnimation,
+    draw   = drawAnimation
+  },
+  icon =  love.graphics.newImage("assets/actions/football/icon.png"),
   score = {
     baby    = { scared = 2, bored = 0, delight = 6},
     girl    = { scared = 0, bored = 6, delight = 3},

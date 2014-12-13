@@ -1,10 +1,34 @@
 -- --------------------------
 -- Action: Detective
 -- --------------------------
+local tween = require("lib.tween")
+
+local aniImg = love.graphics.newImage("assets/actions/detective/ani.png")
+
+local function resetAnimation()
+  -- TODO
+end
+
+
+local function updateAnimation(dt)
+  -- TODO
+end
+
+
+local lg = love.graphics
+local function drawAnimation()
+  lg.draw(aniImg, 0, 0)
+end
+
+
 return {
   name = "CGI Miami",
-  animation = love.graphics.newImage("assets/actions/detective_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/detective_icon.png"),
+  animation = {
+    reset  = resetAnimation,
+    update = updateAnimation,
+    draw   = drawAnimation
+  },
+  icon = love.graphics.newImage("assets/actions/detective/icon.png"),
   score = {
     baby    = { scared = 8, bored = 0, delight = 0},
     girl    = { scared = 2, bored = 4, delight = 2},

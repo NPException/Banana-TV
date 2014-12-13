@@ -28,6 +28,8 @@ function RunState:update(dt)
     for _,entry in ipairs(self.game.run.characters) do
       entry.char:resetMood()
     end
+    -- reset animation
+    self.game.run.action:reset()
   end
   
   self.time = self.time + dt

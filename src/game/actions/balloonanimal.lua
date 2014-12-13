@@ -1,10 +1,34 @@
 -- --------------------------
 -- Action: Balloonanimal
 -- --------------------------
+local tween = require("lib.tween")
+
+local aniImg = love.graphics.newImage("assets/actions/balloonanimal/ani.png")
+
+local function resetAnimation()
+  -- TODO
+end
+
+
+local function updateAnimation(dt)
+  -- TODO
+end
+
+
+local lg = love.graphics
+local function drawAnimation()
+  lg.draw(aniImg, 0, 0)
+end
+
+
 return {
   name = "Balloon Buddies",
-  animation = love.graphics.newImage("assets/actions/balloonanimal_dev.png"),
-  icon = love.graphics.newImage("assets/actions/balloonanimal_icon.png"),
+  animation = {
+    reset  = resetAnimation,
+    update = updateAnimation,
+    draw   = drawAnimation
+  },
+  icon = love.graphics.newImage("assets/actions/balloonanimal/icon.png"),
   score = {
     baby    = { scared = 0, bored = 0, delight = 8},
     girl    = { scared = 0, bored = 6, delight = 2},

@@ -1,10 +1,34 @@
 -- --------------------------
 -- Action: Puppetshow
 -- --------------------------
+local tween = require("lib.tween")
+
+local aniImg = love.graphics.newImage("assets/actions/puppetshow/ani.png")
+
+local function resetAnimation()
+  -- TODO
+end
+
+
+local function updateAnimation(dt)
+  -- TODO
+end
+
+
+local lg = love.graphics
+local function drawAnimation()
+  lg.draw(aniImg, 0, 0)
+end
+
+
 return {
   name = "The Mepputs",
-  animation = love.graphics.newImage("assets/actions/puppetshow_dev.png"),  -- Filepath
-  icon = love.graphics.newImage("assets/actions/puppetshow_icon.png"),
+  animation = {
+    reset  = resetAnimation,
+    update = updateAnimation,
+    draw   = drawAnimation
+  },
+  icon = love.graphics.newImage("assets/actions/puppetshow/icon.png"),
   score = {
     baby    = { scared = 0, bored = 0, delight = 10},
     girl    = { scared = 0, bored = 8, delight = 4},

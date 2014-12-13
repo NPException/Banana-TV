@@ -20,8 +20,17 @@ function Action.new(id, actionTable)
 end
 
 
+function Action:reset()
+  if self.animation.reset then
+    self.animation.reset()
+  end
+end
+
+
 function Action:update(dt)
-  -- todo animation
+  if self.animation.update then
+    self.animation.update(dt)
+  end
 end
 
 
@@ -43,9 +52,13 @@ end
 
 local lg = love.graphics
 function Action:draw()
-  local image = self.animation
+  lg.push()
+  lg.scale(4,4)
   lg.setColor(255,255,255,150)
-  lg.draw(image, 0, 0, 0, globals.config.resX/image:getWidth(), globals.config.resY/image:getHeight())
+  if self.animation.draw then
+    self.animation.draw()
+  end
+  lg.pop()
 end
 
 
