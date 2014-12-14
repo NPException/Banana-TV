@@ -36,7 +36,7 @@ function Timer:update(dt)
       self.callback()
     end
     
-    self.runtime = self.runtime - dt
+    self.runtime = self.runtime - dt*1.1
   end
 end
 
