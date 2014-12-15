@@ -285,7 +285,7 @@ function Menu:drawGUI(pickmode)
     
     local half = globals.config.resX/2
     lg.setColor(255,255,255)
-    gfx.printTiltedWithBackground("Press [4] to go back", half, y+h+offY, 2, {255,255,255} )
+    gfx.printTiltedWithBackground("Press [4] to go back", half, y+h+offY, 2, {255,255,255}, 0.05 )
     
   else
     local half = globals.config.resX/2
