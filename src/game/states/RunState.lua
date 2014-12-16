@@ -29,7 +29,7 @@ function RunState:update(dt)
       entry.char:resetMood()
     end
     -- reset animation
-    self.game.run.action:reset()
+    self.game.run.action:resetAnimation()
   end
   
   self.time = self.time + dt

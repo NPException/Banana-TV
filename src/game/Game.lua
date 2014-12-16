@@ -122,15 +122,6 @@ function Game:draw()
     -- print FPS
     lg.setColor(255,255,255)
     lg.print(love.timer.getFPS(), 3,3,0,2,2)
-    
-    -- print Spots
-    lg.setLineWidth(2)
-    for _,spot in ipairs(self.scene.room.spots.all) do
-      lg.setColor(255,0,0)
-      lg.circle("fill", spot.x, spot.y, 10,20)
-      lg.setColor(0,0,0)
-      lg.circle("line", spot.x, spot.y, 10,20)
-    end
   end
 end
 
@@ -150,7 +141,7 @@ local function convertToGameCoords(x,y)
 end
 
 
-function Game:getMousePosition()
+function Game.getMousePosition()
   local x = love.mouse.getX()
   local y = love.mouse.getY()
   return convertToGameCoords(x,y)

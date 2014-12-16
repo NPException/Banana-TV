@@ -1,7 +1,7 @@
 require("lib.stringfunctions")
 require("lib.requirefolder")
 require("lib.tablefunctions")
-require("lib.hsv")
+require("lib.color")
 
 GLOBALS = { debug=false }
 local globals = GLOBALS
@@ -9,12 +9,34 @@ local globals = GLOBALS
 
 local game
 
+
+
 -- LOAD --
 function love.load(arg)
   globals.config = require("conf")
   globals.scale = globals.config.resY / love.window.getHeight()
   globals.offX = 0
   globals.offY = 0
+    
+  local w,h,flags = love.window.getMode()
+  
+  globals.width = w
+  globals.height = h
+  
+  if  globals.config.autoAdjustFSAA then
+    local fsaa = 16
+    local ok, val = false, nil
+    
+    while not ok do
+      flags.fsaa = fsaa
+      ok = love.window.setMode(1,1,flags)
+      ok = ok and pcall(love.graphics.newImage, "assets/scene/couch.png")
+      ok = ok and pcall(love.graphics.newCanvas, 1280,720)
+      fsaa = math.floor(fsaa/2)
+    end
+    
+    love.window.setMode(w,h,flags)
+  end
   
   math.randomseed(os.clock())
   
@@ -28,13 +50,19 @@ function love.load(arg)
   love.graphics.setFont(font)
   
   -- init cursor
-  cursor = love.mouse.newCursor("assets/mouse/cursor_banana_npe_3x.png",5,5)
-  love.mouse.setCursor(cursor)
+  globals.cursor = {
+    img = love.graphics.newImage("assets/mouse/cursor_banana_npe_3x.png"),
+    alpha = 255
+  }
+  local invisiCursor = love.mouse.newCursor(love.image.newImageData(1,1))
+  love.mouse.setCursor(invisiCursor)
   
   globals.time = 0
   
   game = require("game.Game").new()
 end
+
+
 
 -- KEYPRESSED --
 function love.keypressed(key)
@@ -60,15 +88,21 @@ function love.keypressed(key)
   end
 end
 
+
+
 function love.mousepressed( x, y, button )
   game:mousepressed(x,y,button)
 end
+
+
 
 -- UPDATE --
 function love.update(dt)
   globals.time = globals.time + dt
   game:update(dt)
 end
+
+
 
 -- DRAW --
 local lg = love.graphics
@@ -79,10 +113,21 @@ function love.draw()
   
     game:draw()
     
+    local mx,my = game.getMousePosition()
+    lg.setColor(255,255,255,globals.cursor.alpha)
+    lg.draw(globals.cursor.img,mx,my,0,1,1,5,5)
+    
   lg.pop()
 end
 
+
+
 function love.resize(w,h)
+  if not love.window.getFullscreen() then
+    globals.width = w
+    globals.height = h
+  end
+
   local sx = globals.config.resX / w
   local sy = globals.config.resY / h
   

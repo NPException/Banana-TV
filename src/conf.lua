@@ -22,9 +22,11 @@ end
 
 
 local config = {
+  autoAdjustFSAA = true,
   resX = 1280,
   resY = 720,
-  scorelimit = 50
+  scorelimit = 50,
+  actionLockRounds = 5
 }
 
 return config

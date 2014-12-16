@@ -15,9 +15,7 @@ function Choice.new(game)
   local posY = partY
   
   for _, action in ipairs(choice.game.actions) do
-    
     action.iconPos = {x=posX,y=posY}
-    
     posX = posX+partX
     if  posX > globals.config.resX - partX then
       posX = partX
@@ -40,28 +38,38 @@ end
 local lg = love.graphics
 function Choice:drawGUI()
   
-  local mx,my = self.game:getMousePosition()
+  local mx,my = self.game.getMousePosition()
   
   local focusedAction = nil
   
   for _,action in ipairs(self.game.actions) do
     if action:isMouseOver(mx, my) then
       focusedAction = action
+    else
+      action:drawIcon()
     end
-    action:drawIcon()
   end
   
   if focusedAction then
     focusedAction:drawIconFocus()
+    globals.cursor.alpha = 128
+  else
+    globals.cursor.alpha = 255
   end
 end
 
 function Choice:mousepressed(x,y,button)
   if button == "l" then
     for _,action in ipairs(self.game.actions) do
-      if action:isMouseOver(x,y) then
+      if action:isAvailable() and action:isMouseOver(x,y) then
         self.game.run.action = action
         self.game.state = require("game.states.RunState").new(self.game)
+        globals.cursor.alpha = 255
+        for _,act in ipairs(self.game.actions) do
+          act:decreaseRoundsUnavailable()
+        end
+        local lock = math.random(math.floor(globals.config.actionLockRounds/2), globals.config.actionLockRounds)
+        action:setRoundsUnavailable(lock)
         break
       end
       

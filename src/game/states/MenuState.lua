@@ -4,7 +4,7 @@ Menu.__index = Menu
 local globals = GLOBALS
 local tween = require("lib.tween")
 local lg = love.graphics
-local hsvtorgb = HSVtoRGB
+local hsvToRgb = hsvToRgb
 local gfx = require("lib.graphics")
 
 local moods = {
@@ -57,7 +57,7 @@ function Menu.new(game, highscore)
   menu.changeTimer = 0
   
   menu.titleHue = 0
-  menu.titleHueTween = tween.new(1, menu, {titleHue=255}, "linear")
+  menu.titleHueTween = tween.new(1, menu, {titleHue=1}, "linear")
   
   menu.showHelp = false
   menu.helpPage = 1
@@ -111,6 +111,9 @@ function Menu:keypressed(key)
     self.game.showScore = true
     self.game.state = require("game.states.PreviewState").new(self.game)
     self.game.scene.tvframe:startNoise()
+    for _, action in ipairs(self.game.actions) do
+      action:setRoundsUnavailable(0)
+    end
   end
 end
 
@@ -244,7 +247,7 @@ function Menu:printTitle()
     lg.print("Banana",0,0,0,1,1,width/2,height/2)
     
     local partwidth = lg.getFont():getWidth("Banana ")
-    local r,g,b = hsvtorgb(self.titleHue,255,255)
+    local r,g,b = hsvToRgb(self.titleHue,1,1)
     lg.setColor(r,g,b,alpha)
     lg.print("TV",partwidth, 0, 0, 1, 1, width/2, height/2)
     
