@@ -24,7 +24,7 @@ function love.load(arg)
   globals.height = h
   
   if  globals.config.autoAdjustFSAA then
-    local fsaa = 16
+    local fsaa = flags.fsaa
     local ok, val = false, nil
     
     while not ok do
