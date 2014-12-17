@@ -27,6 +27,7 @@ local config = {
   resY = 720,
   scorelimit = 50,
   actionLockRounds = 5
+  -- streak!!
 }
 
 return config
