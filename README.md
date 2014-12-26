@@ -9,4 +9,4 @@ Repository for my team's LD#31 entry.
 * Graphics (the good ones):
  * [spriteMan](https://github.com/spriteMan)
 
-25
+26
