@@ -1,5 +1,5 @@
 function love.conf(t)
-  t.version = "0.9.1"                -- The LÖVE version this game was made for (string)
+  t.version = "0.9.2"                -- The LÖVE version this game was made for (string)
   t.window.title = "Banana TV (WIP)"
   t.window.icon = nil                -- Filepath to an image to use as the window's icon (string)
   t.window.width = 1280              -- The window width (number)
