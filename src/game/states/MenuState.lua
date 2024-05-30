@@ -18,14 +18,14 @@ local helptext = {
   
     You are a little gnome inside a TV-Monitor who decides what the family members are going to watch.
     
-    First, you have to decide what reactions you are aiming to cause in your audience.
+    First, you have to decide what reactions you want to cause in your audience.
     That choice will later be mentioned in the highscore.
   ]],
   [[
     Each round of the game consists of 3 different steps:
     
     == STEP 1 - the preview ==
-    You will see the empty room with a few items being in it. Those items indicate the character(s) that will watch TV in step 3.
+    You will see the empty room with a few items in it. Those items indicate the character(s) that will watch TV later.
     
     == STEP 2 - the choice ==
     Now you have to decide which program you want to show to your audience. Make the choice depending on the audience you expect\
@@ -33,12 +33,12 @@ local helptext = {
   ]],
   [[
     == STEP 3 - the show ==
-    At this point you will see the character(s) that will be watching your show. Depending on the choice you made in the previous\
+    At this point you will see the character(s) watch your show. Depending on the choice you made in the previous\
     step, the characters might be bored, delighted or even scared by the show.
     Your scores will increased based on that.
     
     == THE END ==
-    The game is over once you have reached ]]..globals.config.scorelimit..[[ points in one of the categories you did not choose.
+    The game is over once you have reached ]]..globals.config.scorelimit..[[ points in any category you did NOT choose at the start.
   ]]
 }
 
@@ -252,7 +252,7 @@ function Menu:printTitle()
     lg.print("TV",partwidth, 0, 0, 1, 1, width/2, height/2)
     
     lg.setColor(255,255,255,alpha)
-    lg.print("Your chance to ruin multiple lifes!", 0,0, 0, 0.25,0.25, width*2, -height*1.5)
+    lg.print("Your chance to ruin multiple lives!", 0, 0, 0, 0.25,0.25, width*2, -height*1.5)
   lg.pop()
 end
 
@@ -296,16 +296,16 @@ function Menu:drawGUI(pickmode)
     
     if self.highscore then
       local height = 320
-      gfx.printTiltedWithBackground("Delight: "..self.highscore.delight, half, height,     self.highscore.variant=="delight" and 4 or 3, {0,238,0},     0.05)
-      gfx.printTiltedWithBackground("Bored: "..self.highscore.bored,     half, height+90,  self.highscore.variant=="bored" and 4 or 3,   {238,238,0},   0.05)
-      gfx.printTiltedWithBackground("Scared: "..self.highscore.scared,   half, height+180, self.highscore.variant=="scared" and 4 or 3,  {238,0,0},     0.05)
-      gfx.printTiltedWithBackground("- Press any key to continue -",     half, height+300, 2,                                            {255,255,255}, 0.05)
+      gfx.printTiltedWithBackground("Delighted: "..self.highscore.delight, half, height,     self.highscore.variant=="delight" and 4 or 3, {0,238,0},     0.05)
+      gfx.printTiltedWithBackground("Bored: "..self.highscore.bored,       half, height+90,  self.highscore.variant=="bored" and 4 or 3,   {238,238,0},   0.05)
+      gfx.printTiltedWithBackground("Scared: "..self.highscore.scared,     half, height+180, self.highscore.variant=="scared" and 4 or 3,  {238,0,0},     0.05)
+      gfx.printTiltedWithBackground("- Press any key to continue -",       half, height+300, 2,                                            {255,255,255}, 0.05)
     else
       local height = 450
-      gfx.printTiltedWithBackground("[1] Delight people",    half, height,     3, {0,238,0}     ,0.05, pickmode)
-      gfx.printTiltedWithBackground("[2] Make people bored", half, height+70,  3, {238,238,0}   ,0.05, pickmode)
-      gfx.printTiltedWithBackground("[3] Scare people",      half, height+140, 3, {238,0,0}     ,0.05, pickmode)
-      gfx.printTiltedWithBackground("[4] HOW TO PLAY",       half, height+200, 2, {255,255,255} ,0.05, pickmode)
+      gfx.printTiltedWithBackground("[1] Delight people", half, height,     3, {0,238,0}    , 0.05, pickmode)
+      gfx.printTiltedWithBackground("[2] Bore people",    half, height+70,  3, {238,238,0}  , 0.05, pickmode)
+      gfx.printTiltedWithBackground("[3] Scare people",   half, height+140, 3, {238,0,0}    , 0.05, pickmode)
+      gfx.printTiltedWithBackground("[4] HOW TO PLAY",    half, height+200, 2, {255,255,255}, 0.05, pickmode)
     end
   end
 end
